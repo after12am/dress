@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
 <link rel="top" title="{{database}} {{version}} documentation" href="#"/> 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+<script src="_static/jquery.js"></script>
 </head>
 <body class="wy-body-for-nav" role="document">
     <div class="wy-grid-for-nav">
@@ -31,8 +32,7 @@
             <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
                 <ul class="simple">
                     {% for table in tablestatus %}
-                    <li class="toctree-l1"><a href="#{{table}}">{{table}}</a></li>
-                    <!-- <li class="toctree-l1"><a class="current" href="#">{{table}}</a></li> -->
+                    <li class="toctree-l1" data-hash="{{table}}"><a href="#{{table}}">{{table}}</a></li>
                     {% endfor %}
                 </ul>
             </div>
@@ -115,6 +115,22 @@ var DOCUMENTATION_OPTIONS = {
     HAS_SOURCE:    true
 };
 </script> -->
+<script type="text/javascript">
+
+function update_navi(hash) {
+    $('.wy-menu li').removeClass('current');
+    $('.wy-menu li[data-hash=' + hash + ']').addClass('current');
+}
+
+$(function() {
+    update_navi(location.hash.split('#')[1]);
+    $('.wy-menu li a').click(function() {
+        var hash = $(this).parent().attr('data-hash');
+        update_navi(hash);
+    });
+});
+
+</script>
 <script type="text/javascript" src="_static/jquery.js"></script>
 <script type="text/javascript" src="_static/underscore.js"></script>
 <!-- <script type="text/javascript" src="_static/doctools.js"></script> -->
