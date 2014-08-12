@@ -38,8 +38,8 @@ def render(temp, options):
         database = options.database,
         tablestatus = tablestatus,
         columns = columns,
-        version = options.version,
-        author = options.author
+        version = options.version if options.version else '',
+        author = options.author if options.author else ''
     ).encode("utf-8"))
     f.close()
 
