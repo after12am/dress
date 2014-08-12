@@ -88,16 +88,6 @@ def toss_main(argv=sys.argv[1:]):
     if options.password is True:
         options.password = raw_input('password:')
     
-    """
-        DEBUG
-    """
-    options.charset = 'utf8'
-    options.database = 'kiki'
-    options.host = '127.0.0.1'
-    options.user = 'root'
-    options.password = ''
-    options.port = 3306
-    
     doc.export(options=options, args=args)
 
 if __name__ == '__main__': toss_main()
