@@ -44,10 +44,4 @@ class TossSQLite3(object):
         self.arg = arg
 
 def factory(host, user, passwd, database, charset):
-    return TossMySQL(
-        host = host, 
-        user = user, 
-        passwd = passwd, 
-        database = database, 
-        charset = charset
-    )
+    return TossMySQL(host=host, user=user, passwd=passwd, database=database, charset=charset)

@@ -1,7 +1,8 @@
 # encoding: utf-8
-import os, sys, shutil, tempfile, db
+import os, sys, shutil, tempfile, db, datetime
 from jinja2 import Template
 
+# create work dir...
 def setup():
     dirname = os.path.dirname(os.path.abspath(__file__))
     temp = tempfile.mkdtemp()
@@ -12,6 +13,7 @@ def setup():
     # return temp dir
     return temp
 
+# run data into template
 def render(temp, options):
     # toss model object
     toss = db.factory(
@@ -45,7 +47,8 @@ def render(temp, options):
         tablestatus = tablestatus,
         columns = columns,
         version = options.version if options.version else '',
-        author = options.author if options.author else ''
+        author = options.author if options.author else '',
+        date = datetime.datetime.today()
     ).encode("utf-8"))
     f.close()
 

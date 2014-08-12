@@ -14,7 +14,6 @@
 </head>
 <body class="wy-body-for-nav" role="document">
     <div class="wy-grid-for-nav">
-        
         <nav data-toggle="wy-nav-shift" class="wy-nav-side">
             <div class="wy-side-nav-search">
                 <a href="#" class="fa fa-home"> {{database}}</a>
@@ -28,7 +27,6 @@
                 </div>
                  -->
             </div>
-            
             <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
                 <ul class="simple">
                     {% for table in tablestatus %}
@@ -36,7 +34,6 @@
                     {% endfor %}
                 </ul>
             </div>
-            
             &nbsp;
         </nav>
 
@@ -45,16 +42,13 @@
                 <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
                 <a href="#">{{database}}</a>
             </nav>
-            
             <div class="wy-nav-content">
                 <div class="rst-content">
                     <div role="navigation" aria-label="breadcrumbs navigation">
                         <h1>Welcome to {{database}}&#8217;s database documentation!<a class="headerlink" href="#welcome-to-{{database}}-s-documentation" title="Permalink to this headline">¶</a></h1>
                          <hr/>
                     </div>
-                    
                     <div role="main" class="document">
-                        
                         {% for table in tablestatus %}
                         <div id="{{table}}" class="section">
                             <h2>{{table}}<a class="headerlink" href="#welcome-to-{{database}}-s-documentation" title="Permalink to this headline">¶</a></h2>
@@ -83,39 +77,32 @@
                                 {% endfor %}
                             </table>
                         </div>
-                        
                         {% if not loop.last %}
                         <hr/>
                         {% endif %}
-                        
                         {% endfor %}
-                        
                     </div>
                     
                     <footer>
                         <hr/>
-
                         <div role="contentinfo">
-                            <p>&copy; Copyright 2014, {{author}}.</p>
+                            <p>&copy; Copyright {{date.year}}, {{author}}.</p>
                         </div>
-
                         <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
                     </footer>
                 </div>
             </div>
         </section>
     </div>
-
-<!-- <script type="text/javascript">
-var DOCUMENTATION_OPTIONS = {
-    URL_ROOT:'./',
-    VERSION:'{{version}}',
-    COLLAPSE_INDEX:false,
-    FILE_SUFFIX:'.html',
-    HAS_SOURCE:    true
-};
-</script> -->
 <script type="text/javascript">
+
+// var DOCUMENTATION_OPTIONS = {
+//     URL_ROOT:'./',
+//     VERSION:'{{version}}',
+//     COLLAPSE_INDEX:false,
+//     FILE_SUFFIX:'.html',
+//     HAS_SOURCE:    true
+// };
 
 function update_navi(hash) {
     $('.wy-menu li').removeClass('current');
