@@ -14,7 +14,13 @@ def setup():
 
 def render(temp, options):
     # toss model object
-    toss = db.factory(host=options.host, user=options.user, passwd=options.password, database=options.database, charset=options.charset)
+    toss = db.factory(
+        host = options.host, 
+        user = options.user, 
+        passwd = options.password, 
+        database = options.database, 
+        charset = options.charset
+    )
     
     # set table status
     tablestatus = {}
