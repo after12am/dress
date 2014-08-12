@@ -1,3 +1,4 @@
+# encoding: utf-8
 import os, sys, doc
 from optparse import OptionParser
 

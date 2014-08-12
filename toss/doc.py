@@ -1,3 +1,4 @@
+# encoding: utf-8
 import os, sys, shutil, tempfile, db
 from jinja2 import Template
 
