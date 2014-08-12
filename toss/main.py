@@ -1,6 +1,5 @@
-import sys
+import os, sys, doc
 from optparse import OptionParser
-from doc import export
 
 def toss_main(argv=sys.argv[1:]):
     
@@ -9,11 +8,6 @@ def toss_main(argv=sys.argv[1:]):
         version="%prog pre-alpha",
         add_help_option=False
     )
-    
-    """
-    reference mysql option
-    http://dev.mysql.com/doc/refman/5.1/ja/mysql-command-options.html
-    """
     
     parser.add_option(
         "-u", "--user", 
@@ -78,7 +72,16 @@ def toss_main(argv=sys.argv[1:]):
     if options.password is True:
         options.password = raw_input('password:')
     
-    export(options=options, args=args)
-
+    """
+        DEBUG
+    """
+    options.charset = 'utf8'
+    options.database = 'kiki'
+    options.host = '127.0.0.1'
+    options.user = 'root'
+    options.password = ''
+    options.port = 3306
+    
+    doc.export(options=options, args=args)
 
 if __name__ == '__main__': toss_main()

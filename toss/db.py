@@ -1,6 +1,6 @@
 import os, sys, MySQLdb
-from pprint import pprint
 
+# object connects to MySQL
 class TossMySQL(object):
     
     def __init__(self, host, user, passwd, database, charset):
@@ -28,6 +28,19 @@ class TossMySQL(object):
         self.cursor.execute("show table status;")
         return self.cursor.fetchall()
 
-def factory(options):
-    # return TossMySQL(host=options['host'], user=options['user'], passwd=options['password'], database=options['database'], charset=options['charset'])
-    return TossMySQL(host=options.host, user=options.user, passwd=options.password, database=options.database, charset=options.charset)
+# object connects to PostgresSQL
+class TossPostgreSQL(object):
+    
+    def __init__(self, arg):
+        super(TossPostgreSQL, self).__init__()
+        self.arg = arg
+
+# object connects to SQLite3
+class TossSQLite3(object):
+    
+    def __init__(self, arg):
+        super(TossSQLite3, self).__init__()
+        self.arg = arg
+
+def factory(host, user, passwd, database, charset):
+    return TossMySQL(host=host, user=user, passwd=passwd, database=database, charset=charset)
