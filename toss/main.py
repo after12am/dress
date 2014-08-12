@@ -64,6 +64,22 @@ def toss_main(argv=sys.argv[1:]):
     )
     
     parser.add_option(
+        "--author", 
+        dest="author",
+        help="author",
+        type="string",
+        default=""
+    )
+    
+    parser.add_option(
+        "-v", # "--version",
+        dest="version",
+        help="version",
+        type="string",
+        default=None
+    )
+    
+    parser.add_option(
         "--help", "--usage", 
         action='help'
     )

@@ -36,7 +36,9 @@ def render(temp, options):
     f.write(template.render(
         database = options.database,
         tablestatus = tablestatus,
-        columns = columns
+        columns = columns,
+        version = options.version,
+        author = options.author
     ).encode("utf-8"))
     f.close()
 
