@@ -5,7 +5,7 @@ setup(
     version='pre-alpha',
     packages=find_packages(),
     install_requires=[
-        'MySQLdb',
+        'MySQL-python',
         'jinja2'
     ],
     entry_points={
