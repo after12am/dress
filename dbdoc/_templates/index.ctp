@@ -10,7 +10,6 @@
 <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
 <link rel="top" title="{{database.name[0]}} {{version}} database documentation" href="#"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
-<script src="_static/jquery.js"></script>
 </head>
 <body class="wy-body-for-nav" role="document">
     <div class="wy-grid-for-nav">
@@ -92,6 +91,9 @@
             </div>
         </section>
     </div>
+<script type="text/javascript" src="_static/jquery.js"></script>
+<script type="text/javascript" src="_static/underscore.js"></script>
+<script type="text/javascript" src="_static/js/theme.js"></script>
 <script type="text/javascript">
 
 function update_navi(hash) {
@@ -105,11 +107,10 @@ $(function() {
         var hash = $(this).parent().attr('data-hash');
         update_navi(hash);
     });
+    
+    SphinxRtdTheme.StickyNav.enable();
 });
 
 </script>
-<script type="text/javascript" src="_static/jquery.js"></script>
-<script type="text/javascript" src="_static/underscore.js"></script>
-<script type="text/javascript" src="_static/js/theme.js"></script>    
 </body>
 </html>
