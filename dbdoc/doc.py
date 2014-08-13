@@ -1,64 +1,56 @@
 # encoding: utf-8
-import os, sys, shutil, tempfile, db, datetime
-from jinja2 import Template
+import os, sys, shutil, tempfile, datetime
+from jinja2 import Environment, FileSystemLoader
+from db import factory
+from pprint import pprint
 
-# create work dir...
-def setup():
-    dirname = os.path.dirname(os.path.abspath(__file__))
-    temp = tempfile.mkdtemp()
-    if os.path.exists(temp):
-        shutil.rmtree(temp)
+__dirname__ = os.path.dirname(os.path.abspath(__file__))
+__static__  = os.path.join(__dirname__, '_static')
+__output__  = 'htdocs'
+
+# create temp dir and return the path
+def create_temp_dir():
+    return tempfile.mkdtemp()
+
+def setup(tempdir):
     # copy static files
-    shutil.copytree(dirname + '/_static', temp + '/_static')
-    # return temp dir
-    return temp
+    shutil.copytree(__static__, os.path.join(tempdir, '_static'))
 
-# run data into template
-def render(temp, options):
-    # dbdoc model object
-    dbdoc = db.factory(
-        host = options.host, 
-        user = options.user, 
-        passwd = options.password, 
-        database = options.database, 
-        charset = options.charset
-    )
+# running data into template...
+def render(output, content):
+    with open(output, 'w') as f:
+        f.write(content.encode('utf-8'))
+
+# create database documentation
+def export(options, args = None):
+    tempdir = create_temp_dir()
+    setup(tempdir)
     
-    # set table status
-    tablestatus = {}
-    for row in dbdoc.tablestatus():
-        table = row[0]
-        tablestatus.setdefault(table, {})
-        tablestatus[table] = row
+    db = factory(host=options.host, user=options.user, passwd=options.password, database=options.database, charset = options.charset)
+    env = Environment(loader=FileSystemLoader('_templates'))
     
-    # set colum info
-    columns = {}
-    for table in tablestatus:
-        columns.setdefault(table, {})
-        columns[table] = dbdoc.columns(table)
+    database = {
+        'name'  : options.database,
+        'tables': {}
+    }
     
-    # render
-    dirname = os.path.dirname(os.path.abspath(__file__))
-    data = open(dirname + '/_templates/index.ctp', 'r').read()
-    template = Template(data.decode('utf8'))
-    f = open(temp + '/index.html', 'w')
-    f.write(template.render(
-        database = options.database,
-        tablestatus = tablestatus,
-        columns = columns,
+    for item in db.get_table_status():
+        table = item[0]
+        database['tables'][table] = {}
+        database['tables'][table]['status']  = item
+        database['tables'][table]['columns'] = db.get_columns(table)
+    
+    template = env.get_template('index.ctp')
+    output = os.path.join(tempdir, 'index.html')
+    render(output, template.render(
+        database = database,
         version = options.version if options.version else '',
         author = options.author if options.author else '',
-        date = datetime.datetime.today()
-    ).encode("utf-8"))
-    f.close()
-
-# create database schema design document
-def export(options, args = None):
-    dirname = os.path.dirname(os.path.abspath(__file__))
-    temp = setup()
-    render(temp, options)
-    # export document to {output}
-    shutil.move(temp, './')
-    if os.path.exists(dirname + '/htdocs'):
-        shutil.rmtree(dirname + '/htdocs')
-    os.rename(os.path.basename(temp), 'htdocs')
+        today = datetime.datetime.today()
+    ))
+    
+    shutil.move(tempdir, './')
+    if os.path.exists(os.path.join(__dirname__, __output__)):
+        # have to alert the error
+        print "file exists error"
+    os.rename(os.path.basename(tempdir), __output__)
