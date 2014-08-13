@@ -76,7 +76,7 @@ class _PostgreSQL(object):
         pass
 
 def factory(datasource):
-    if datasource is 'mysql':      return _MySQL()
-    if datasource is 'sqlite':     return _SQLite3()
+    if datasource is 'mysql': return _MySQL()
+    if datasource is 'sqlite': return _SQLite3()
     if datasource is 'postgresql': return _PostgreSQL()
     return None

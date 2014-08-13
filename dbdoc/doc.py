@@ -1,7 +1,6 @@
 # encoding: utf-8
-import os, sys, shutil, tempfile, datetime
+import os, sys, shutil, tempfile, datetime, datasource
 from jinja2 import Environment, FileSystemLoader
-from db import factory
 from pprint import pprint
 
 __dirname__ = os.path.dirname(os.path.abspath(__file__))
@@ -14,13 +13,15 @@ def create_temp_dir():
     shutil.copytree(__static__, os.path.join(tempdir, '_static'))
     return tempdir
 
+# save file to...
 def save(output, content):
     with open(output, 'w') as f:
         f.write(content.encode('utf-8'))
 
-def render_index(tempdir, options):
+# running data into template and save as html
+def render(tempdir, options):
     # get datasource instance
-    db = factory(options.datasource)
+    db = datasource.factory(options.datasource)
     if db is None:
         sys.exit('Unknown datasource')
     db.connect(host=options.host, user=options.user, passwd=options.password, database=options.database, charset = options.charset)
@@ -33,7 +34,7 @@ def render_index(tempdir, options):
         database['tables'][table] = {}
         database['tables'][table]['status']  = item
         database['tables'][table]['columns'] = db.get_columns(table)
-    # running data into template...
+    # output
     env = Environment(loader=FileSystemLoader('_templates'))
     template = env.get_template('index.ctp')
     output = os.path.join(tempdir, 'index.html')
@@ -47,7 +48,7 @@ def render_index(tempdir, options):
 # create database documentation
 def export(options, args = None):
     tempdir = create_temp_dir()
-    render_index(tempdir, options)
+    render(tempdir, options)
     if os.path.exists(os.path.join(__dirname__, __output__ % options.database)):
         sys.exit("file exists error")
     shutil.move(tempdir, './')
