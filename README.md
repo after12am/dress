@@ -1,10 +1,10 @@
-toss
-====
+dbdoc
+=====
 
 mysql database specification exporter in html format
 
 
-![example](http://after12am.github.io/toss/cover.png)
+![example](http://after12am.github.io/dbdoc/cover.png)
 
 ## Required
 

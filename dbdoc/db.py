@@ -2,7 +2,7 @@
 import os, sys, MySQLdb
 
 # object connects to MySQL
-class TossMySQL(object):
+class _MySQL(object):
     
     def __init__(self, host, user, passwd, database, charset):
         if database is None:
@@ -30,18 +30,18 @@ class TossMySQL(object):
         return self.cursor.fetchall()
 
 # object connects to PostgresSQL
-class TossPostgreSQL(object):
+class _PostgreSQL(object):
     
     def __init__(self, arg):
-        super(TossPostgreSQL, self).__init__()
+        super(_PostgreSQL, self).__init__()
         self.arg = arg
 
 # object connects to SQLite3
-class TossSQLite3(object):
+class _SQLite3(object):
     
     def __init__(self, arg):
-        super(TossSQLite3, self).__init__()
+        super(_SQLite3, self).__init__()
         self.arg = arg
 
 def factory(host, user, passwd, database, charset):
-    return TossMySQL(host=host, user=user, passwd=passwd, database=database, charset=charset)
+    return _MySQL(host=host, user=user, passwd=passwd, database=database, charset=charset)

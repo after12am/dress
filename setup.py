@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='toss',
+    name='dbdoc',
     version='pre-alpha',
     packages=find_packages(),
     install_requires=[
@@ -10,7 +10,7 @@ setup(
     ],
     entry_points={
         'console_scripts':
-            'toss = toss.main:toss_main'
+            'dbdoc = dbdoc.main:dbdoc_main'
     },
     zip_safe=False,
     classifiers=[

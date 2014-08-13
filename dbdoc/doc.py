@@ -15,8 +15,8 @@ def setup():
 
 # run data into template
 def render(temp, options):
-    # toss model object
-    toss = db.factory(
+    # dbdoc model object
+    dbdoc = db.factory(
         host = options.host, 
         user = options.user, 
         passwd = options.password, 
@@ -26,7 +26,7 @@ def render(temp, options):
     
     # set table status
     tablestatus = {}
-    for row in toss.tablestatus():
+    for row in dbdoc.tablestatus():
         table = row[0]
         tablestatus.setdefault(table, {})
         tablestatus[table] = row
@@ -35,7 +35,7 @@ def render(temp, options):
     columns = {}
     for table in tablestatus:
         columns.setdefault(table, {})
-        columns[table] = toss.columns(table)
+        columns[table] = dbdoc.columns(table)
     
     # render
     dirname = os.path.dirname(os.path.abspath(__file__))
