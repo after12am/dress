@@ -1,5 +1,5 @@
 # encoding: utf-8
-import os, sys, doc
+import os, sys, documentor
 from optparse import OptionParser
 
 def dbdoc_main(argv=sys.argv[1:]):
@@ -97,6 +97,6 @@ def dbdoc_main(argv=sys.argv[1:]):
     if options.password is True:
         options.password = raw_input('password:')
     
-    doc.export(options=options, args=args)
+    documentor.export(options=options, args=args)
 
 if __name__ == '__main__': dbdoc_main()

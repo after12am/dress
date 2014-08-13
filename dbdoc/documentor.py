@@ -53,3 +53,9 @@ def export(options, args = None):
         sys.exit("file exists error")
     shutil.move(tempdir, './')
     os.rename(os.path.basename(tempdir), __output__ % options.database)
+
+
+if __name__ == '__main__':
+    if os.path.exists(os.path.join(__dirname__, __output__ % 'kiki')):
+        shutil.rmtree(os.path.join(__dirname__, __output__ % 'kiki'))
+    os.system('python /Users/satoshi/Desktop/dbdoc/dbdoc/main.py')
