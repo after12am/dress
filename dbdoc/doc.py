@@ -41,7 +41,7 @@ def render(tempdir, options):
     save(output, template.render(
         database = database,
         version = options.version if options.version else '',
-        author = options.author if options.author else '',
+        author = options.author,
         today = datetime.datetime.today()
     ))
 

@@ -77,7 +77,7 @@ def dbdoc_main(argv=sys.argv[1:]):
         dest="author",
         help="author",
         type="string",
-        default=""
+        default="All rights reserved"
     )
     
     parser.add_option(
