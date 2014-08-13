@@ -11,6 +11,14 @@ def dbdoc_main(argv=sys.argv[1:]):
     )
     
     parser.add_option(
+        "--datasource", 
+        dest="datasource",
+        help="Supported datasource. valid options are mysql, sqlite, postgres",
+        type="string",
+        default=None
+    )
+    
+    parser.add_option(
         "-u", "--user", 
         dest="user",
         help="MySQL user name that is used to connect the server",

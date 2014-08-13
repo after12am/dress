@@ -8,7 +8,7 @@
 <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
 <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
-<link rel="top" title="{{database.name}} {{version}} documentation" href="#"/>
+<link rel="top" title="{{database.name}} {{version}} database documentation" href="#"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
 <script src="_static/jquery.js"></script>
 </head>
