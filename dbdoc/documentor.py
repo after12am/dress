@@ -18,10 +18,8 @@ class Documentor(object):
     # dest is relative path from tempdir
     def add(self, src, dest):
         output = os.path.join(self.tempdir, dest)
-        if os.path.isdir(src):
-            shutil.copytree(src, output)
-        else:
-            shutil.copyfile(src, output)
+        copy = shutil.copytree if os.path.isdir(src) else shutil.copyfile
+        copy(src, output)
     
     def remove(self, src):
         pass
