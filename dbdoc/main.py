@@ -103,7 +103,7 @@ def dbdoc_main(argv=sys.argv[1:]):
     datasource.connect(**vars(options))
     
     # export database document
-    documentor.export(options=options, args=args)
+    documentor.export(database=options.database, author=options.author, version=options.version)
     
     # disconnecting from database
     datasource.close()
