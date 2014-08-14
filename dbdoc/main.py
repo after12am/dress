@@ -97,6 +97,15 @@ def dbdoc_main(argv=sys.argv[1:]):
     if options.password is True:
         options.password = raw_input('password:')
     
+    # select datasource and connect to database
+    import datasource
+    datasource.select(options.datasource)
+    datasource.connect(**vars(options))
+    
+    # export database document
     documentor.export(options=options, args=args)
+    
+    # disconnecting from database
+    datasource.close()
 
 if __name__ == '__main__': dbdoc_main()

@@ -21,10 +21,7 @@ def save(output, content):
 # running data into template and save as html
 def render(tempdir, options):
     # get datasource instance
-    db = datasource.factory(options.datasource)
-    if db is None:
-        sys.exit('Unknown datasource')
-    db.connect(host=options.host, user=options.user, passwd=options.password, database=options.database, charset = options.charset)
+    db = datasource.get_instance()
     # create data
     database = {}
     database['name']   = options.database,
