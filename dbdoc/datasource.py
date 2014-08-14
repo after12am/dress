@@ -95,8 +95,8 @@ class DataSource(object):
     
     @classmethod
     def close(cls):
-        if hasattr(cls, 'instance') and self.instance:
-            self.instance.close()
+        if hasattr(cls, 'instance') and cls.instance:
+            cls.instance.close()
 
 def select(datasource):
     DataSource.select(datasource)
