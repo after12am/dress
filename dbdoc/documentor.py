@@ -23,10 +23,10 @@ class Documentor(object):
         copy(src, output)
     
     def remove(self, path):
-        if os.path.isdir(src):
+        if os.path.isdir(path):
             shutil.rmtree(path)
-        elif os.path.exists(self.temp):
-            os.remove(self.temp)
+        elif os.path.exists(path):
+            os.remove(path)
     
     # delete temp dir
     def deploy(self):
