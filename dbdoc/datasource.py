@@ -3,21 +3,22 @@ import os, sys
 
 class MySQL(object):
     
-    def __init__(self, **kwargs):
+    def __init__(self, host, user, password, charset, database):
         self.con = None
         self.cursor = None
-        self.host = kwargs['host']
-        self.user = kwargs['user']
-        self.password = kwargs['password']
-        self.database = kwargs['database']
-        self.charset = kwargs['charset']
+        self.host = host
+        self.user = user
+        self.password = password
+        self.database = database
+        self.charset = charset
     
     def __del__(self):
         self.close()
     
     def connect(self):
         import MySQLdb
-        self.con = MySQLdb.connect(host=self.host, user=self.user, passwd=self.password, charset=self.charset, db=self.database)
+        self.con = MySQLdb.connect(host=self.host, user=self.user, \
+            passwd=self.password, charset=self.charset, db=self.database)
         self.cursor = self.con.cursor()
     
     def close(self):
@@ -36,8 +37,8 @@ class MySQL(object):
 
 class SQLite3(object):
     
-    def __init__(self, **kwargs):
-        pass
+    def __init__(self, database):
+        self.database = database
     
     def __del__(self):
         pass
@@ -56,8 +57,12 @@ class SQLite3(object):
 
 class PostgreSQL(object):
     
-    def __init__(self, **kwargs):
-        pass
+    def __init__(self, host, user, password, charset, database):
+        self.host = host
+        self.user = user
+        self.password = password
+        self.database = database
+        self.charset = charset
     
     def __del__(self):
         pass
@@ -86,10 +91,15 @@ class DataSource(object):
         cls.datasource = datasource
     
     @classmethod
-    def connect(cls, **kwargs):
-        if cls.datasource == MySQL.__name__.lower(): cls.instance = MySQL(**kwargs)
-        if cls.datasource == SQLite3.__name__.lower(): cls.instance = _SQLite3(**kwargs)
-        if cls.datasource == PostgreSQL.__name__.lower(): cls.instance = _PostgreSQL(**kwargs)
+    def connect(cls, options):
+        if cls.datasource == 'mysql':
+            cls.instance = MySQL(host=options.host, user=options.user, \
+                password=options.password, charset=options.charset, database=options.database)
+        if cls.datasource == 'sqlite3':
+            cls.instance = SQLite3(options.database)
+        if cls.datasource == 'postgresql':
+            cls.instance = PostgreSQL(host=options.host, user=options.user, \
+                password=options.password, charset=options.charset, database=options.database)
         if hasattr(cls, 'instance') and cls.instance:
             cls.instance.connect()
     
@@ -101,8 +111,8 @@ class DataSource(object):
 def select(datasource):
     DataSource.select(datasource)
 
-def connect(**kwargs):
-    DataSource.connect(**kwargs)
+def connect(options):
+    DataSource.connect(options)
 
 def close():
     DataSource.close()

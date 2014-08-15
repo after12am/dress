@@ -13,7 +13,7 @@ def dbdoc_main(argv=sys.argv[1:]):
     parser.add_option(
         "--datasource", 
         dest="datasource",
-        help="Supported datasource. valid options are mysql, sqlite, postgres",
+        help="Supported datasource. valid options are mysql, sqlite3, postgres",
         type="string",
         default=None
     )
@@ -100,7 +100,7 @@ def dbdoc_main(argv=sys.argv[1:]):
     # select datasource and connect to database
     import datasource
     datasource.select(options.datasource)
-    datasource.connect(**vars(options))
+    datasource.connect(options)
     
     # export database document
     documentor.export(database=options.database, author=options.author, version=options.version)

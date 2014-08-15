@@ -1,42 +1,82 @@
 # encoding: utf-8
 import os, sys, shutil, tempfile, datetime, datasource
 from jinja2 import Environment, FileSystemLoader
-from pprint import pprint
 
-# tell template dir path to jinja2
-env = Environment(loader=FileSystemLoader('_templates'))
-
-__dirname__ = os.path.dirname(os.path.abspath(__file__))
-__static__  = os.path.join(__dirname__, '_static')
+__dirname__  = os.path.dirname(os.path.abspath(__file__))
+__static__   = os.path.join(__dirname__, '_static')
+__template__ = '_templates'
 
 class Documentor(object):
      
     def __init__(self, name):
         self.name = name
-        self.tempdir = create_temp_dir()
+        self.temp = self.create()
     
-    # dest is relative path from tempdir
+    # create temp directory and return the path
+    def create(self):
+        return tempfile.mkdtemp()
+    
+    # dest is relative path from the temp dir
     def add(self, src, dest):
-        output = os.path.join(self.tempdir, dest)
+        output = os.path.join(self.temp, dest)
         copy = shutil.copytree if os.path.isdir(src) else shutil.copyfile
         copy(src, output)
     
-    def remove(self, src):
-        pass
+    def remove(self, path):
+        if os.path.isdir(src):
+            shutil.rmtree(path)
+        elif os.path.exists(self.temp):
+            os.remove(self.temp)
     
+    # delete temp dir
     def deploy(self):
-        shutil.move(self.tempdir, './')
-        os.rename(os.path.basename(self.tempdir), self.name)
+        shutil.move(self.temp, './')
+        os.rename(os.path.basename(self.temp), self.name)
     
-    def locked(self):
+    def exists(self):
         return os.path.exists(os.path.join(__dirname__, self.name))
 
-class IndexDoc(object):
+class File(object):
     
     def __init__(self):
-        self.tempfile = create_temp_file()
-        self.template = 'index.ctp'
-        self.content = None
+        self.temp = self.create()
+        self.buff = None
+    
+    def __del__(self):
+        self.destroy()
+    
+    @property
+    def path(self):
+        return self.temp
+    
+    # create the temp file and return the path
+    def create(self):
+        f, path = tempfile.mkstemp()
+        os.close(f)
+        return path
+    
+    # delete the temp file
+    def destroy(self):
+        if os.path.exists(self.temp):
+            os.remove(self.temp)
+    
+    def render(self):
+        pass
+    
+    def save(self):
+        if self.buff is not None:
+            with open(self.temp, 'w') as f:
+                f.write(self.buff.encode('utf-8'))
+
+class Template(File):
+    
+    env = Environment(loader=FileSystemLoader(__template__))
+    
+    def __init__(self):
+        super(Template, self).__init__()
+        self.template = None
+
+class IndexTemplate(Template):
     
     def render(self, database, author, version):
         db = datasource.get_instance()
@@ -49,51 +89,30 @@ class IndexDoc(object):
             data['tables'][table]['status']  = item
             data['tables'][table]['columns'] = db.get_columns(table)
         # running data into template...
-        self.content = env.get_template(self.template).render(
+        self.buff = Template.env.get_template('index.ctp').render(
             database = data,
             version = version if version else '',
             author = author,
             today = datetime.datetime.today()
         )
-    
-    def save(self):
-        if self.content is not None:
-            with open(self.tempfile, 'w') as f:
-                f.write(self.content.encode('utf-8'))
-    
-    def destroy(self):
-        os.remove(self.tempfile)
-    
-    def path(self):
-        return self.tempfile
-
-# create temp directory and return the path
-def create_temp_dir():
-    return tempfile.mkdtemp()
-
-# create temp file and return the path
-def create_temp_file():
-    f, path = tempfile.mkstemp()
-    os.close(f)
-    return path
 
 # create database documentation
 def export(database, author, version):
-    
-    doc = IndexDoc()
+    # create database documentation file
+    doc = IndexTemplate()
     doc.render(database=database, author=author, version=version)
     doc.save()
     
     # packaging the document
     documentor = Documentor('dbdoc')
     documentor.add(__static__, '_static')
-    documentor.add(doc.path(), 'index.html')
+    documentor.add(doc.path, 'index.html')
     
     # delete temp file
     doc.destroy()
     
     # exporting the document
-    if not documentor.locked():
+    if not documentor.exists():
         documentor.deploy()
     else:
         print "File exists error\n"
