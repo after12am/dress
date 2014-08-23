@@ -56,13 +56,14 @@ class SQLite3(object):
         self.conn = None
         self.cursor = None
         self.database = database
+        self.timeout = 5000
     
     def __del__(self):
         self.close()
     
     def connect(self):
         import sqlite3
-        self.conn = sqlite3.connect(self.database, timeout = 5000)
+        self.conn = sqlite3.connect(self.database, timeout = self.timeout)
         self.cursor = self.conn.cursor()
     
     def close(self):
