@@ -73,7 +73,7 @@ class SQLite3(object):
             self.conn.close()
     
     def get_tables(self):
-        self.cursor.execute("SELECT name FROM sqlite_master WHERE type = 'table'")
+        self.cursor.execute("select name from sqlite_master where type = 'table'")
         return [item[0] for item in self.cursor.fetchall()]
     
     def get_columns(self, table):
@@ -88,7 +88,7 @@ class SQLite3(object):
         return ''
         
     def get_create_statement(self, table):
-        self.cursor.execute("SELECT sql FROM sqlite_master WHERE type = 'table' AND name = '%s'" % table)
+        self.cursor.execute("select sql from sqlite_master where type = 'table' and name = '%s'" % table)
         ret = self.cursor.fetchall()
         return ret[0][0]
         
