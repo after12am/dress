@@ -110,7 +110,7 @@ class SQLTemplate(Template):
         db = datasource.get_instance()
         data = ""
         for table in db.get_tables():
-            data += db.get_create_statement(table) + "\n\n"
+            data += db.get_create_statement(table) + ";\n\n"
         self.buff = data
         
 # create database documentation
