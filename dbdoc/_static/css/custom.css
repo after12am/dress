@@ -1,6 +1,10 @@
 .wy-nav-content {
     max-width: none;
 }
+.document .section .header,
+.document .section .header h2 {
+    margin-bottom: 0.3em;
+}
 table, caption, tbody, tfoot, thead, tr, th, td {
     margin: 0;
     padding: 0;
