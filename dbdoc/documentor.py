@@ -10,53 +10,61 @@ class Documentor(object):
      
     def __init__(self, name):
         self.name = name
-        self.temp = self.create()
+        self.temp = self._create()
     
-    # create temp directory and return the path
-    def create(self):
+    def __del__(self):
+        self._destroy()
+    
+    # create docs and return the path
+    def _create(self):
         return tempfile.mkdtemp()
     
-    # dest is relative path from the temp dir
+    def _destroy(self):
+        pass
+    
+    # dest is relative path from docs
     def add(self, src, dest):
         output = os.path.join(self.temp, dest)
         copy = shutil.copytree if os.path.isdir(src) else shutil.copyfile
         copy(src, output)
     
+    # remove specified file from docs
     def remove(self, path):
         if os.path.isdir(path):
             shutil.rmtree(path)
         elif os.path.exists(path):
             os.remove(path)
     
-    # delete temp dir
+    # delete docs
     def deploy(self):
         shutil.move(self.temp, './')
         os.rename(os.path.basename(self.temp), self.name)
     
+    # whether docs exist or not
     def exists(self):
         return os.path.exists(os.path.join(__dirname__, self.name))
 
 class File(object):
     
     def __init__(self):
-        self.temp = self.create()
+        self.temp = self._create()
         self.buff = None
     
     def __del__(self):
-        self.destroy()
+        self._destroy()
     
     @property
     def path(self):
         return self.temp
     
     # create the temp file and return the path
-    def create(self):
+    def _create(self):
         f, path = tempfile.mkstemp()
         os.close(f)
         return path
     
     # delete the temp file
-    def destroy(self):
+    def _destroy(self):
         if os.path.exists(self.temp):
             os.remove(self.temp)
     
@@ -122,9 +130,6 @@ def export(database, author, version):
     documentor.add(__static__, '_static')
     documentor.add(doc.path, 'index.html')
     documentor.add(stmts.path, 'sql.txt')
-    
-    # delete temp file
-    doc.destroy()
     
     # exporting the document
     if not documentor.exists():
