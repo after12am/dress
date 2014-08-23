@@ -79,7 +79,6 @@ class SQLite3(object):
     def get_columns(self, table):
         self.cursor.execute("pragma table_info('%s')" % table)
         return self.cursor.fetchall()
-        
     
     def get_table_status(self):
         pass
