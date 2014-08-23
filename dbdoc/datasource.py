@@ -53,6 +53,8 @@ class MySQL(object):
 class SQLite3(object):
     
     def __init__(self, database):
+        self.conn = None
+        self.cursor = None
         self.database = database
     
     def __del__(self):
