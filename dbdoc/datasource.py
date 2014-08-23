@@ -27,6 +27,10 @@ class MySQL(object):
         if hasattr(self, 'con') and self.con:
             self.con.close()
     
+    def get_tables(self):
+        self.cursor.execute("show tables;")
+        return self.cursor.fetchall()
+    
     def get_columns(self, table):
         self.cursor.execute("show full columns from %s;" % table)
         return self.cursor.fetchall()
@@ -34,6 +38,11 @@ class MySQL(object):
     def get_table_status(self):
         self.cursor.execute("show table status;")
         return self.cursor.fetchall()
+    
+    def get_create_statement(self, table):
+        self.cursor.execute("show create table %s;" % table)
+        ret = self.cursor.fetchall()
+        return ret[0][1]
 
 class SQLite3(object):
     
@@ -53,6 +62,9 @@ class SQLite3(object):
         pass
     
     def get_table_status(self):
+        pass
+    
+    def get_create_statement(self, table):
         pass
 
 class PostgreSQL(object):
@@ -77,6 +89,9 @@ class PostgreSQL(object):
         pass
     
     def get_table_status(self):
+        pass
+    
+    def get_create_statement(self, table):
         pass
 
 class DataSource(object):

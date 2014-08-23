@@ -42,9 +42,10 @@
             </nav>
             <div class="wy-nav-content">
                 <div class="rst-content">
-                    <div role="navigation" aria-label="breadcrumbs navigation">
+                    <div class="navigation" role="navigation" aria-label="breadcrumbs navigation">
                         <h1>Welcome to {{database.name[0]}}&#8217;s database documentation!<a class="headerlink" href="#welcome-to-{{database.name[0]}}-s-documentation" title="Permalink to this headline">¶</a></h1>
-                         <hr/>
+                        <p class="wy-breadcrumbs-aside"><a href="sql.txt" class="fa"> View SQL</a></p>
+                        <hr/>
                     </div>
                     <div role="main" class="document">
                         {% for table, item in database.tables.iteritems() %}

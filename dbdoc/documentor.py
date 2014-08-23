@@ -60,8 +60,8 @@ class File(object):
         if os.path.exists(self.temp):
             os.remove(self.temp)
     
-    def render(self):
-        pass
+    def render(self, data):
+        self.buff = data
     
     def save(self):
         if self.buff is not None:
@@ -96,17 +96,32 @@ class IndexTemplate(Template):
             today = datetime.datetime.today()
         )
 
+class SQLTemplate(Template):
+    
+    def render(self):
+        db = datasource.get_instance()
+        data = ""
+        for table in db.get_tables():
+            data += db.get_create_statement(table) + "\n\n"
+        self.buff = data
+        
 # create database documentation
 def export(database, author, version):
-    # create database documentation file
+    # create database documentation page
     doc = IndexTemplate()
     doc.render(database=database, author=author, version=version)
     doc.save()
     
+    # create `create statements` page
+    stmts = SQLTemplate()
+    stmts.render()
+    stmts.save()
+    
     # packaging the document
-    documentor = Documentor('dbdoc')
+    documentor = Documentor('dbdoc_' + database)
     documentor.add(__static__, '_static')
     documentor.add(doc.path, 'index.html')
+    documentor.add(stmts.path, 'sql.txt')
     
     # delete temp file
     doc.destroy()
