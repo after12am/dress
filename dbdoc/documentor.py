@@ -91,13 +91,13 @@ class IndexTemplate(Template):
         data = {}
         data['name']   = database,
         data['tables'] = {}
-        for item in db.get_table_status():
-            table = item[0]
+        for table in db.get_tables():
             data['tables'][table] = {}
-            data['tables'][table]['status']  = item
+            data['tables'][table]['comment']  = db.get_table_comment(table)
             data['tables'][table]['columns'] = db.get_columns(table)
         # running data into template...
         self.buff = Template.env.get_template('index.ctp').render(
+            datasource = db.__class__.__name__.lower(),
             database = data,
             version = version if version else '',
             author = author,

@@ -4,7 +4,7 @@ import os, sys
 class MySQL(object):
     
     def __init__(self, host, user, password, charset, database):
-        self.con = None
+        self.conn = None
         self.cursor = None
         self.host = host
         self.user = user
@@ -17,27 +17,33 @@ class MySQL(object):
     
     def connect(self):
         import MySQLdb
-        self.con = MySQLdb.connect(host=self.host, user=self.user, \
+        self.conn = MySQLdb.connect(host=self.host, user=self.user, \
             passwd=self.password, charset=self.charset, db=self.database)
-        self.cursor = self.con.cursor()
+        self.cursor = self.conn.cursor()
     
     def close(self):
         if hasattr(self, 'cursor') and self.cursor:
             self.cursor.close()
-        if hasattr(self, 'con') and self.con:
-            self.con.close()
+        if hasattr(self, 'con') and self.conn:
+            self.conn.close()
     
     def get_tables(self):
         self.cursor.execute("show tables;")
-        return self.cursor.fetchall()
+        return [item[0] for item in self.cursor.fetchall()]
     
     def get_columns(self, table):
         self.cursor.execute("show full columns from %s;" % table)
         return self.cursor.fetchall()
     
+    # not compatible with other datasource
     def get_table_status(self):
         self.cursor.execute("show table status;")
         return self.cursor.fetchall()
+    
+    def get_table_comment(self, table):
+        self.cursor.execute("show table status where name = '%s';" % table)
+        ret = self.cursor.fetchall()
+        return ret[0][-1]
     
     def get_create_statement(self, table):
         self.cursor.execute("show create table %s;" % table)
@@ -50,22 +56,40 @@ class SQLite3(object):
         self.database = database
     
     def __del__(self):
-        pass
+        self.close()
     
     def connect(self):
-        pass
+        import sqlite3
+        self.conn = sqlite3.connect(self.database, timeout = 5000)
+        self.cursor = self.conn.cursor()
     
     def close(self):
-        pass
+        if hasattr(self, 'cursor') and self.cursor:
+            self.cursor.close()
+        if hasattr(self, 'con') and self.conn:
+            self.conn.close()
+    
+    def get_tables(self):
+        self.cursor.execute("SELECT name FROM sqlite_master WHERE type = 'table'")
+        return [item[0] for item in self.cursor.fetchall()]
     
     def get_columns(self, table):
-        pass
+        self.cursor.execute("pragma table_info('%s')" % table)
+        return self.cursor.fetchall()
+        
     
     def get_table_status(self):
         pass
     
+    def get_table_comment(self, table):
+        # can not set table comment in sqlite
+        return ''
+        
     def get_create_statement(self, table):
-        pass
+        self.cursor.execute("SELECT sql FROM sqlite_master WHERE type = 'table' AND name = '%s'" % table)
+        ret = self.cursor.fetchall()
+        return ret[0][0]
+        
 
 class PostgreSQL(object):
     
