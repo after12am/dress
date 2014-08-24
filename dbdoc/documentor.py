@@ -1,6 +1,7 @@
 # encoding: utf-8
 import os, sys, shutil, tempfile, datetime, datasource
 from jinja2 import Environment, FileSystemLoader
+from collections import OrderedDict
 import helper
 
 __dirname__  = os.path.dirname(os.path.abspath(__file__))
@@ -93,7 +94,7 @@ class IndexTemplate(Template):
         data['name']   = database,
         # can't understand why there is a need to be converted to a string type
         data['name']   = data['name'][0]
-        data['tables'] = {}
+        data['tables'] = OrderedDict()
         for table in db.get_tables():
             data['tables'][table] = {}
             data['tables'][table]['comment'] = db.get_table_comment(table)
