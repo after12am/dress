@@ -44,7 +44,10 @@
                 <div class="rst-content">
                     <div class="navigation" role="navigation" aria-label="breadcrumbs navigation">
                         <h1>Welcome to {{database.name[0]}}&#8217;s database documentation!<a class="headerlink" href="#welcome-to-{{database.name[0]}}-s-documentation" title="Permalink to this headline">¶</a></h1>
-                        <p class="wy-breadcrumbs-aside"><a href="sql.txt" class="fa"> View SQL</a></p>
+                        {# I can't understand how to export create statement in postgresql #}
+                        {% if datasource != 'postgresql' %}
+                            <p class="wy-breadcrumbs-aside"><a href="sql.txt" class="fa"> View SQL</a></p>
+                        {% endif %}
                         <hr/>
                     </div>
                     <div role="main" class="document">
