@@ -29,7 +29,7 @@
             <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
                 <ul class="simple">
                     {% for table in database.tables %}
-                    <li class="toctree-l1" data-hash="{{table}}"><a href="#{{table}}">{{table}}</a></li>
+                        <li class="toctree-l1" data-hash="{{table}}"><a href="#{{table}}">{{table}}</a></li>
                     {% endfor %}
                 </ul>
             </div>
@@ -52,14 +52,10 @@
                             <div id="{{table}}" class="section">
                                 <div class="header">
                                     <h2>{{table}}<a class="headerlink" href="#welcome-to-{{database.name[0]}}-s-documentation" title="Permalink to this headline">¶</a></h2>
-                                    {% if item.comment %}<p>{{item.comment}}</p>{% endif %}
+                                    <p>{{item.comment}}</p>
                                 </div>
                                 <div>
-                                    {% if datasource == 'mysql' %}
-                                        {% include "elements/table_status.mysql.ctp" %}
-                                    {% elif datasource == 'sqlite3' %}
-                                        {% include "elements/table_status.sqlite3.ctp" %}
-                                    {% endif %}
+                                    {% include "elements/table_status.ctp" %}
                                 </div>
                             </div>
                             {% if not loop.last %}
