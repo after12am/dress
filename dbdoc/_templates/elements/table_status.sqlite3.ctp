@@ -12,7 +12,7 @@
         <td>{{c[2]}}</td>
         <td>{% if c[3] == 1 %}NO{% else %}YES{% endif %}</td>
         <td>{% if c[5] == 1 %}PRI{% endif %}</td>
-        <td>{{c[4]}}</td>
+        <td>{{c[4]|strip_extra_singlequote}}</td>
     </tr>
     {% endfor %}
 </table>

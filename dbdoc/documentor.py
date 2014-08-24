@@ -1,6 +1,7 @@
 # encoding: utf-8
 import os, sys, shutil, tempfile, datetime, datasource
 from jinja2 import Environment, FileSystemLoader
+import helper
 
 __dirname__  = os.path.dirname(os.path.abspath(__file__))
 __static__   = os.path.join(__dirname__, '_static')
