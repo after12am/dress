@@ -1,6 +1,6 @@
 <table style="min-width:100%;">
     <tr>
-        <th>Fielda</th>
+        <th>Field</th>
         <th>Type</th>
         <th>Null</th>
         <th>Key</th>
