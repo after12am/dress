@@ -100,7 +100,9 @@ def dbdoc_main(argv=sys.argv[1:]):
     # select datasource and connect to database
     import datasource
     datasource.select(options.datasource)
-    datasource.connect(options)
+    
+    if not datasource.connect(options):
+        sys.exit("Failed to connect datasource")
     
     # export database document
     documentor.export(database=options.database, author=options.author, version=options.version)

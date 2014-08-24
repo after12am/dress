@@ -143,6 +143,8 @@ class DataSource(object):
                 password=options.password, charset=options.charset, database=options.database)
         if hasattr(cls, 'instance') and cls.instance:
             cls.instance.connect()
+            return True
+        return False
     
     @classmethod
     def close(cls):
@@ -153,7 +155,7 @@ def select(datasource):
     DataSource.select(datasource)
 
 def connect(options):
-    DataSource.connect(options)
+    return DataSource.connect(options)
 
 def close():
     DataSource.close()
