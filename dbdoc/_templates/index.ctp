@@ -4,18 +4,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{{database.name[0]}} {{version}} documentation</title>
+<title>{{database.name}} {{version}} - database design documentation</title>
 <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
 <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
-<link rel="top" title="{{database.name[0]}} {{version}} database documentation" href="#"/>
+<link rel="top" title="{{database.name}} {{version}} database documentation" href="#"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
 </head>
 <body class="wy-body-for-nav" role="document">
     <div class="wy-grid-for-nav">
         <nav data-toggle="wy-nav-shift" class="wy-nav-side">
             <div class="wy-side-nav-search">
-                <a href="#" class="fa fa-home"> {{database.name[0]}}</a>
+                <a href="#" class="fa fa-home"> {{database.name}}</a>
                 <!-- 
                 <div role="search">
                     <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -38,12 +38,12 @@
         <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
             <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
                 <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-                <a href="#">{{database.name[0]}}</a>
+                <a href="#">{{database.name}}</a>
             </nav>
             <div class="wy-nav-content">
                 <div class="rst-content">
                     <div class="navigation" role="navigation" aria-label="breadcrumbs navigation">
-                        <h1>Welcome to {{database.name[0]}}&#8217;s database documentation!<a class="headerlink" href="#welcome-to-{{database.name[0]}}-s-documentation" title="Permalink to this headline">¶</a></h1>
+                        <h1>database design documentation<a class="headerlink" href="#database-design-documentation" title="Permalink to this headline">¶</a></h1>
                         {# I can't understand how to export create statement in postgresql #}
                         {% if datasource != 'postgresql' %}
                             <p class="wy-breadcrumbs-aside"><a href="sql.txt" class="fa"> View SQL</a></p>
@@ -54,7 +54,7 @@
                         {% for table, item in database.tables.iteritems() %}
                             <div id="{{table}}" class="section">
                                 <div class="header">
-                                    <h2>{{table}}<a class="headerlink" href="#welcome-to-{{database.name[0]}}-s-documentation" title="Permalink to this headline">¶</a></h2>
+                                    <h2>{{table}}<a class="headerlink" href="#welcome-to-{{database.name}}-s-documentation" title="Permalink to this headline">¶</a></h2>
                                     <p>{{item.comment}}</p>
                                 </div>
                                 <div>

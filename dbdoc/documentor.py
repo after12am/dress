@@ -91,6 +91,8 @@ class IndexTemplate(Template):
         db = datasource.get_instance()
         data = {}
         data['name']   = database,
+        # can't understand why there is a need to be converted to a string type
+        data['name']   = data['name'][0]
         data['tables'] = {}
         for table in db.get_tables():
             data['tables'][table] = {}
