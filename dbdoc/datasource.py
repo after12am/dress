@@ -123,9 +123,14 @@ class PostgreSQL(object):
         return [item[0] for item in self.cursor.fetchall()]
     
     def get_columns(self, table):
-        query = """
+        get_columns_query = """
             select
-                *
+                column_name,
+                udt_name,
+                character_maximum_length,
+                collation_name,
+                is_nullable,
+                column_default
             from
                 information_schema.columns
             where
@@ -133,70 +138,63 @@ class PostgreSQL(object):
             and table_name = '%s'
             order by ordinal_position;
         """
-        self.cursor.execute(query % (self.database, table))
-        columns_status = self.cursor.fetchall()
-        comments = self.get_comments_related_to_columns(table)
-        key_status = self.get_key_status(table)
-        # merge comment on column
-        columns_status = [item + ['', ''] for item in columns_status]
-        for comment in comments:
-            for k, info in enumerate(columns_status):
-                if info[3] == comment[0]:
-                    columns_status[k][-2] = comment[1]
-        for key in key_status:
-            for k, info in enumerate(columns_status):
-                if info[3] in key[1]:
-                    columns_status[k][-1] = key[0][0:3]
-        return columns_status
-    
-    def get_comments_related_to_columns(self, table):
-        query = """
+        
+        get_comment_query = """
             select
-                pa.attname as COLUMN_NAME,
-                pd.description as COLUMN_COMMENT
+                pd.description
             from
-                pg_stat_all_tables psat,
-                pg_description pd,
-                pg_attribute pa
+                pg_stat_all_tables as psat
+            inner join
+                pg_description as pd on psat.relid = pd.objoid
+            inner join
+                pg_attribute as pa on pd.objoid = pa.attrelid and pd.objsubid = pa.attnum
             where
                 psat.schemaname = (select schemaname from pg_stat_user_tables where relname = '%s')
             and psat.relname = '%s'
-            and psat.relid = pd.objoid
+            and pa.attname = '%s'
             and pd.objsubid <> 0
-            and pd.objoid = pa.attrelid
-            and pd.objsubid = pa.attnum
             order by pd.objsubid;
         """
-        self.cursor.execute(query % (table, table))
-        return self.cursor.fetchall()
-    
-    def get_key_status(self, table):
-        query = """
+        
+        get_key_query = """
             select
-                tc.constraint_name as CONSTRAINT_NAME,
-                ccu.column_name as COLUMN_NAME,
-                tc.constraint_type as CONSTRAINT_TYPE
+                tc.constraint_name,
+                tc.constraint_type
             from
-            	information_schema.table_constraints tc,
-            	information_schema.constraint_column_usage ccu
+            	information_schema.table_constraints as tc
+            inner join
+                information_schema.constraint_column_usage as ccu on 
+                    tc.table_catalog = ccu.table_catalog 
+                and tc.table_schema = ccu.table_schema 
+                and tc.table_name = ccu.table_name 
+                and tc.constraint_name = ccu.constraint_name
             where
             	tc.table_catalog = '%s'
             and tc.table_name = '%s'
-            and tc.table_catalog = ccu.table_catalog
-            and tc.table_schema = ccu.table_schema
-            and tc.table_name = ccu.table_name
-            and tc.constraint_name = ccu.constraint_name
+            and ccu.column_name = '%s'
         """
-        self.cursor.execute(query % (self.database, table))
-        key = {}
-        for item in self.cursor.fetchall():
-            key.setdefault(item[0], [item[2], []])
-            key[item[0]][1].append(item[1])
-        values = key.values()
-        for k, item in enumerate(values):
-            if item[0].lower() == 'unique' and len(item[1]) >= 2:
-                values[k][0] = 'MULTIPLE'
-        return values
+        
+        self.cursor.execute(get_columns_query % (self.database, table))
+        status = self.cursor.fetchall()
+        
+        for i, item in enumerate(status):
+            column = item[0]
+            # merge column comment
+            self.cursor.execute(get_comment_query % (table, table, column))
+            ret = self.cursor.fetchone()
+            status[i] += ret if ret is not None else ['']
+            # merge key information
+            self.cursor.execute(get_key_query % (self.database, table, column))
+            ret = self.cursor.fetchone()
+            status[i] += ret if ret is not None else [None, '']
+        
+        # if multiple unique index, change key name to multiple
+        for i, item in enumerate(status):
+            for j in range(i + 1, len(status)):
+                if status[i][-2] == status[j][-2] and status[i][-1] and status[i][-1].lower() == 'unique':
+                    status[i][-1] = status[j][-1] = 'MULTIPLE'
+        # shorten key name in 3 characters
+        return [x[:8] + [x[-1][:3]] for x in status]
     
     def get_table_status(self):
         pass

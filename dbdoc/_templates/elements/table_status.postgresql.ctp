@@ -10,13 +10,13 @@
     </tr>
     {% for c in item.columns %}
     <tr>
+        <td>{{c[0]}}</td>
+        <td>{{c[1]}}{% if c[2] %}({{c[2]}}){% endif %}</td>
         <td>{{c[3]}}</td>
-        <td>{{c[27]}}{% if c[8] %}({{c[8]}}){% endif %}</td>
-        <td>{{c[21]}}</td>
-        <td>{{c[6]}}</td>
-        <td>{{c[45]}}</td>
+        <td>{{c[4]}}</td>
+        <td>{% if c[8] %}{{c[8]}}{% endif %}</td>
         <td>{{c[5]}}</td>
-        <td>{{c[44]}}</td>
+        <td>{{c[6]}}</td>
     </tr>
     {% endfor %}
 </table>
