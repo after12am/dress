@@ -35,11 +35,6 @@ class MySQL(object):
         self.cursor.execute("show full columns from %s;" % table)
         return self.cursor.fetchall()
     
-    # not compatible with other datasource
-    def get_table_status(self):
-        self.cursor.execute("show table status;")
-        return self.cursor.fetchall()
-    
     def get_table_comment(self, table):
         self.cursor.execute("show table status where name = '%s';" % table)
         ret = self.cursor.fetchall()
@@ -79,9 +74,6 @@ class SQLite3(object):
     def get_columns(self, table):
         self.cursor.execute("pragma table_info('%s')" % table)
         return self.cursor.fetchall()
-    
-    def get_table_status(self):
-        pass
     
     def get_table_comment(self, table):
         # can not set table comment in sqlite
@@ -224,9 +216,6 @@ class PostgreSQL(object):
                     status[i][-1] = status[j][-1] = 'MULTIPLE'
         # shorten key name in 3 characters
         return [x[:8] + [x[-1][:3]] for x in status]
-    
-    def get_table_status(self):
-        pass
     
     def get_table_comment(self, table):
         self.cursor.execute(self._get_table_comment_query % table)
