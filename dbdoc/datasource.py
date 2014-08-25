@@ -29,7 +29,7 @@ class MySQL(object):
     
     def get_tables(self):
         self.cursor.execute("show tables;")
-        return [item[0] for item in self.cursor.fetchall()]
+        return sorted([item[0] for item in self.cursor.fetchall()])
     
     def get_columns(self, table):
         self.cursor.execute("show full columns from %s;" % table)
@@ -74,7 +74,7 @@ class SQLite3(object):
     
     def get_tables(self):
         self.cursor.execute("select name from sqlite_master where type = 'table'")
-        return [item[0] for item in self.cursor.fetchall()]
+        return sorted([item[0] for item in self.cursor.fetchall()])
     
     def get_columns(self, table):
         self.cursor.execute("pragma table_info('%s')" % table)
@@ -120,7 +120,7 @@ class PostgreSQL(object):
     
     def get_tables(self):
         self.cursor.execute("select relname as TABLE_NAME from pg_stat_user_tables;")
-        return [item[0] for item in self.cursor.fetchall()]
+        return sorted([item[0] for item in self.cursor.fetchall()])
     
     def get_columns(self, table):
         get_columns_query = """
