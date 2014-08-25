@@ -119,7 +119,7 @@ class PostgreSQL(object):
             self.conn.close()
     
     def get_tables(self):
-        self.cursor.execute("select relname as TABLE_NAME from pg_stat_user_tables;")
+        self.cursor.execute("select relname from pg_stat_user_tables;")
         return sorted([item[0] for item in self.cursor.fetchall()])
     
     def get_columns(self, table):
@@ -177,6 +177,7 @@ class PostgreSQL(object):
         self.cursor.execute(get_columns_query % (self.database, table))
         status = self.cursor.fetchall()
         
+        # add additional data, comment and key, to basic column data
         for i, item in enumerate(status):
             column = item[0]
             # merge column comment
@@ -187,7 +188,6 @@ class PostgreSQL(object):
             self.cursor.execute(get_key_query % (self.database, table, column))
             ret = self.cursor.fetchone()
             status[i] += ret if ret is not None else [None, '']
-        
         # if multiple unique index, change key name to multiple
         for i, item in enumerate(status):
             for j in range(i + 1, len(status)):
@@ -204,10 +204,11 @@ class PostgreSQL(object):
             select
                 pd.description
             from
-                pg_stat_user_tables psut, pg_description pd
+                pg_stat_user_tables as psut
+            inner join
+                pg_description as pd on psut.relid = pd.objoid
             where
                 psut.relname = '%s'
-            and psut.relid = pd.objoid
             and pd.objsubid = 0;
         """
         self.cursor.execute(query % table)
