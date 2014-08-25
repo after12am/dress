@@ -84,7 +84,6 @@ class Template(File):
     
     def __init__(self):
         super(Template, self).__init__()
-        self.template = None
 
 class IndexTemplate(Template):
     
