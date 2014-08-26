@@ -54,7 +54,7 @@
                         {% for table, item in database.tables.iteritems() %}
                             <div id="{{table}}" class="section">
                                 <div class="header">
-                                    <h2>{{table}}<a class="headerlink" href="#welcome-to-{{database.name}}-s-documentation" title="Permalink to this headline">¶</a></h2>
+                                    <h2 id="{{table}}">{{table}}<a class="headerlink" href="#{{table}}" title="Permalink to this headline">¶</a></h2>
                                     <p>{{item.comment}}</p>
                                 </div>
                                 <div>
