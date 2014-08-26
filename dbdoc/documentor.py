@@ -130,7 +130,7 @@ def export(database, author, version):
     
     # packaging the document
     documentor = Documentor('dbdoc_' + database)
-    documentor.add(__static__, '_static')
+    documentor.add(__static__, 'static')
     documentor.add(doc.path, 'index.html')
     documentor.add(stmts.path, 'sql.txt')
     

@@ -6,8 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{{database.name}} {{version}} - database design documentation</title>
 <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-<link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+<link rel="stylesheet" href="static/css/theme.css" type="text/css" />
+<link rel="stylesheet" href="static/css/custom.css" type="text/css" />
 <link rel="top" title="{{database.name}} {{version}} database documentation" href="#"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
 </head>
@@ -77,9 +77,9 @@
             </div>
         </section>
     </div>
-<script type="text/javascript" src="_static/jquery.js"></script>
-<script type="text/javascript" src="_static/underscore.js"></script>
-<script type="text/javascript" src="_static/js/theme.js"></script>
+<script type="text/javascript" src="static/jquery.js"></script>
+<script type="text/javascript" src="static/underscore.js"></script>
+<script type="text/javascript" src="static/js/theme.js"></script>
 <script type="text/javascript">
 
 function update_navi(hash) {
