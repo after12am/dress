@@ -105,7 +105,7 @@ def dbdoc_main(argv=sys.argv[1:]):
         sys.exit("Failed to connect datasource")
     
     # export database document
-    documentor.export(database=options.database, author=options.author, version=options.version)
+    documentor.publish(database=options.database, author=options.author, version=options.version)
     
     # disconnecting from database
     datasource.close()

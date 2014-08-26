@@ -117,7 +117,7 @@ class SQLTemplate(Template):
         self.buff = data
         
 # create database documentation
-def export(database, author, version):
+def publish(database, author, version):
     # create database documentation page
     doc = IndexTemplate()
     doc.render(database=database, author=author, version=version)
