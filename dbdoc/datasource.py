@@ -1,5 +1,5 @@
 # encoding: utf-8
-import os, sys, re
+import os, sys, re, subprocess
 
 class MySQL(object):
     
@@ -40,10 +40,17 @@ class MySQL(object):
         ret = self.cursor.fetchall()
         return ret[0][-1]
     
+    # this is not compatible with other datasources
     def get_create_statement(self, table):
         self.cursor.execute("show create table %s;" % table)
         ret = self.cursor.fetchall()
         return ret[0][1]
+    
+    def get_create_statements(self):
+        res = ""
+        for table in self.get_tables():
+            res += self.get_create_statement(table) + ";\n\n"
+        return res
 
 class SQLite3(object):
     
@@ -78,11 +85,18 @@ class SQLite3(object):
     def get_table_comment(self, table):
         # can not set table comment in sqlite
         return ''
-        
+    
+    # this is not compatible with other datasources
     def get_create_statement(self, table):
         self.cursor.execute("select sql from sqlite_master where type = 'table' and name = '%s'" % table)
         ret = self.cursor.fetchall()
         return ret[0][0]
+    
+    def get_create_statements(self):
+        res = ""
+        for table in self.get_tables():
+            res += self.get_create_statement(table) + ";\n\n"
+        return res
         
 
 class PostgreSQL(object):
@@ -150,20 +164,22 @@ class PostgreSQL(object):
         and pd.objsubid = 0;
     """
     
-    def __init__(self, host, user, password, database):
+    def __init__(self, host, user, password, database, port):
         self.conn = None
         self.cursor = None
         self.host = host
         self.user = user
         self.password = password
         self.database = database
+        self.port = port
     
     def __del__(self):
         self.close()
     
     def connect(self):
         import pgdb
-        self.conn = pgdb.connect(host=self.host, user=self.user, \
+        server = "%s:%s" % (str(self.host), str(self.port),)
+        self.conn = pgdb.connect(host=server, user=self.user, \
             password=self.password, database=self.database)
         self.cursor = self.conn.cursor()
     
@@ -222,11 +238,16 @@ class PostgreSQL(object):
         ret = self.cursor.fetchall()
         return ret[0][-1]
     
-    def get_create_statement(self, table):
-        # I think about how I output create statement
-        # import commands
-        # commands.getoutput("pg_dump -U postgres --schema-only my_db ")
-        return ""
+    def get_create_statements(self):
+        # https://github.com/raspi/pypgbackup/blob/master/src/pgbackup.py
+        os.putenv('PGPASSWORD', self.password)
+        cmd = "pg_dump -U %s --no-password -h %s --schema-only %s -p %s"
+        cmd = cmd % (self.user, self.host, self.database, self.port)
+        p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+        p.wait()
+        res = p.stdout.readlines()
+        if len(res) > 0: return "\n".join(res)
+        sys.exit("\n".join(p.stderr.readlines()))
 
 class DataSource(object):
     
@@ -247,9 +268,8 @@ class DataSource(object):
         if cls.datasource == 'sqlite3':
             cls.instance = SQLite3(options.database)
         if cls.datasource == 'postgresql':
-            server = "%s:%s" % (str(options.host), str(options.port),)
-            cls.instance = PostgreSQL(host=server, user=options.user, \
-                password=options.password, database=options.database)
+            cls.instance = PostgreSQL(host=options.host, user=options.user, \
+                password=options.password, database=options.database, port=options.port)
         if hasattr(cls, 'instance') and cls.instance:
             cls.instance.connect()
             return True

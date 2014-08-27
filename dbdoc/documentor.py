@@ -111,10 +111,7 @@ class SQLTemplate(Template):
     
     def render(self):
         db = datasource.get_instance()
-        data = ""
-        for table in db.get_tables():
-            data += db.get_create_statement(table) + ";\n\n"
-        self.buff = data
+        self.buff = db.get_create_statements()
         
 # create database documentation
 def publish(database, author, version):
