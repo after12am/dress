@@ -16,20 +16,14 @@
         <nav data-toggle="wy-nav-shift" class="wy-nav-side">
             <div class="wy-side-nav-search">
                 <a href="#" class="fa fa-home"> {{database.name}}</a>
-                <!-- 
                 <div role="search">
-                    <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
-                        <input type="text" name="q" placeholder="Search docs" />
-                        <input type="hidden" name="check_keywords" value="yes" />
-                        <input type="hidden" name="area" value="default" />
-                    </form>
+                    <input class="search" type="text" name="q" placeholder="Search word" />
                 </div>
-                 -->
             </div>
             <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
                 <ul class="simple">
                     {% for table in database.tables %}
-                        <li class="toctree-l1" data-hash="{{table}}"><a href="#{{table}}">{{table}}</a></li>
+                        <li class="toctree-l1" data-hash="{{table}}"><a class="{{table}}" href="#{{table}}">{{table}}</a></li>
                     {% endfor %}
                 </ul>
             </div>
@@ -57,14 +51,11 @@
                                 <div>
                                     {% include "elements/table_status.ctp" %}
                                 </div>
-                            </div>
-                            {% if not loop.last %}
                                 <hr/>
-                            {% endif %}
+                            </div>
                         {% endfor %}
                     </div>
                     <footer>
-                        <hr/>
                         <div role="contentinfo">
                             <p>&copy; Copyright {{today.year}}, {{author}}.</p>
                         </div>
@@ -77,6 +68,7 @@
 <script type="text/javascript" src="static/jquery.js"></script>
 <script type="text/javascript" src="static/underscore.js"></script>
 <script type="text/javascript" src="static/js/theme.js"></script>
+<script type="text/javascript" src="static/js/search.js"></script>
 <script type="text/javascript">
 
 function update_navi(hash) {
