@@ -15,7 +15,7 @@
     <div class="wy-grid-for-nav">
         <nav data-toggle="wy-nav-shift" class="wy-nav-side">
             <div class="wy-side-nav-search">
-                <a href="#" class="fa fa-home"> {{database.name}}</a>
+                <a href="/" class="fa fa-home"> {{database.name}}</a>
                 <div role="search">
                     <input class="search" type="text" name="q" placeholder="Search word" />
                 </div>
