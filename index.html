@@ -4,340 +4,358 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>sample  documentation</title>
+<title>kiki  - database design documentation</title>
 <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" href="./static/css/theme.css" type="text/css" />
-<link rel="stylesheet" href="./static/css/custom.css" type="text/css" />
-<link rel="top" title="sample  documentation" href="#"/> 
+<link rel="stylesheet" href="static/css/theme.css" type="text/css" />
+<link rel="stylesheet" href="static/css/custom.css" type="text/css" />
+<link rel="top" title="kiki  database documentation" href="#"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
-<script src="./static/jquery.js"></script>
 </head>
 <body class="wy-body-for-nav" role="document">
     <div class="wy-grid-for-nav">
         <nav data-toggle="wy-nav-shift" class="wy-nav-side">
             <div class="wy-side-nav-search">
-                <a href="#" class="fa fa-home"> sample</a>
-                <!-- 
+                <a href="#" class="fa fa-home"> kiki</a>
                 <div role="search">
-                    <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
-                        <input type="text" name="q" placeholder="Search docs" />
-                        <input type="hidden" name="check_keywords" value="yes" />
-                        <input type="hidden" name="area" value="default" />
-                    </form>
+                    <input class="search" type="text" name="q" placeholder="Search word" />
                 </div>
-                 -->
             </div>
             <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
                 <ul class="simple">
                     
-                    <li class="toctree-l1" data-hash="docclass_cc"><a href="#docclass_cc">docclass_cc</a></li>
+                        <li class="toctree-l1" data-hash="docclass_cc"><a class="docclass_cc" href="#docclass_cc">docclass_cc</a></li>
                     
-                    <li class="toctree-l1" data-hash="docclass_fisher"><a href="#docclass_fisher">docclass_fisher</a></li>
+                        <li class="toctree-l1" data-hash="docclass_fc"><a class="docclass_fc" href="#docclass_fc">docclass_fc</a></li>
                     
-                    <li class="toctree-l1" data-hash="docclass_naivebayes"><a href="#docclass_naivebayes">docclass_naivebayes</a></li>
+                        <li class="toctree-l1" data-hash="docclass_fisher"><a class="docclass_fisher" href="#docclass_fisher">docclass_fisher</a></li>
                     
-                    <li class="toctree-l1" data-hash="wiki_title"><a href="#wiki_title">wiki_title</a></li>
+                        <li class="toctree-l1" data-hash="docclass_naivebayes"><a class="docclass_naivebayes" href="#docclass_naivebayes">docclass_naivebayes</a></li>
                     
-                    <li class="toctree-l1" data-hash="docclass_fc"><a href="#docclass_fc">docclass_fc</a></li>
+                        <li class="toctree-l1" data-hash="wiki_title"><a class="wiki_title" href="#wiki_title">wiki_title</a></li>
                     
                 </ul>
             </div>
             &nbsp;
         </nav>
-
         <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
             <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
                 <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-                <a href="#">sample</a>
+                <a href="#">kiki</a>
             </nav>
             <div class="wy-nav-content">
                 <div class="rst-content">
-                    <div role="navigation" aria-label="breadcrumbs navigation">
-                        <h1>Welcome to sample&#8217;s database documentation!<a class="headerlink" href="#welcome-to-sample-s-documentation" title="Permalink to this headline">¶</a></h1>
-                         <hr/>
+                    <div class="navigation" role="navigation" aria-label="breadcrumbs navigation">
+                        <h1>database design documentation<a class="headerlink" href="#database-design-documentation" title="Permalink to this headline">¶</a></h1>
+                        <p class="wy-breadcrumbs-aside"><a href="sql.txt" class="fa"> View SQL</a></p>
+                        <hr/>
                     </div>
                     <div role="main" class="document">
                         
-                        <div id="docclass_cc" class="section">
-                            <h2>docclass_cc<a class="headerlink" href="#welcome-to-sample-s-documentation" title="Permalink to this headline">¶</a></h2>
-                            <table>
-                                <tr>
-                                    <th>Field</th>
-                                    <th>Type</th>
-                                    <th>Collation</th>
-                                    <th>Null</th>
-                                    <th>Key</th>
-                                    <th>Default</th>
-                                    <th>Extra</th>
-                                    <th>Comment</th>
-                                </tr>
-                                
-                                <tr>
-                                    <td>id</td>
-                                    <td>int(11)</td>
-                                    <td>None</td>
-                                    <td>NO</td>
-                                    <td>PRI</td>
-                                    <td>None</td>
-                                    <td>auto_increment</td>
-                                    <td></td>
-                                </tr>
-                                
-                                <tr>
-                                    <td>category</td>
-                                    <td>varchar(64)</td>
-                                    <td>utf8_general_ci</td>
-                                    <td>NO</td>
-                                    <td>UNI</td>
-                                    <td>None</td>
-                                    <td></td>
-                                    <td>category name</td>
-                                </tr>
-                                
-                                <tr>
-                                    <td>count</td>
-                                    <td>int(11) unsigned</td>
-                                    <td>None</td>
-                                    <td>NO</td>
-                                    <td></td>
-                                    <td>1</td>
-                                    <td></td>
-                                    <td>category count</td>
-                                </tr>
-                                
-                            </table>
-                        </div>
+                            <div id="docclass_cc" class="section">
+                                <div class="header">
+                                    <h2 id="docclass_cc">docclass_cc<a class="headerlink" href="#docclass_cc" title="Permalink to this headline">¶</a></h2>
+                                    <p>keep a count of each category</p>
+                                </div>
+                                <div>
+                                    
+    <table>
+    <tr>
+        <th>Field</th>
+        <th>Type</th>
+        <th>Collation</th>
+        <th>Null</th>
+        <th>Key</th>
+        <th>Default</th>
+        <th>Extra</th>
+        <th>Comment</th>
+    </tr>
+    
+    <tr>
+        <td>id</td>
+        <td>int(11)</td>
+        <td>None</td>
+        <td>NO</td>
+        <td>PRI</td>
+        <td>None</td>
+        <td>auto_increment</td>
+        <td></td>
+    </tr>
+    
+    <tr>
+        <td>category</td>
+        <td>varchar(64)</td>
+        <td>utf8_general_ci</td>
+        <td>NO</td>
+        <td>UNI</td>
+        <td>None</td>
+        <td></td>
+        <td>category name</td>
+    </tr>
+    
+    <tr>
+        <td>count</td>
+        <td>int(11) unsigned</td>
+        <td>None</td>
+        <td>NO</td>
+        <td></td>
+        <td>1</td>
+        <td></td>
+        <td>category count</td>
+    </tr>
+    
+</table>
+
+                                </div>
+                                <hr/>
+                            </div>
                         
-                        <hr/>
+                            <div id="docclass_fc" class="section">
+                                <div class="header">
+                                    <h2 id="docclass_fc">docclass_fc<a class="headerlink" href="#docclass_fc" title="Permalink to this headline">¶</a></h2>
+                                    <p>keep a count of each feature</p>
+                                </div>
+                                <div>
+                                    
+    <table>
+    <tr>
+        <th>Field</th>
+        <th>Type</th>
+        <th>Collation</th>
+        <th>Null</th>
+        <th>Key</th>
+        <th>Default</th>
+        <th>Extra</th>
+        <th>Comment</th>
+    </tr>
+    
+    <tr>
+        <td>id</td>
+        <td>int(11)</td>
+        <td>None</td>
+        <td>NO</td>
+        <td>PRI</td>
+        <td>None</td>
+        <td>auto_increment</td>
+        <td></td>
+    </tr>
+    
+    <tr>
+        <td>feature</td>
+        <td>varchar(64)</td>
+        <td>utf8_general_ci</td>
+        <td>NO</td>
+        <td>MUL</td>
+        <td>None</td>
+        <td></td>
+        <td>feature name</td>
+    </tr>
+    
+    <tr>
+        <td>category</td>
+        <td>varchar(64)</td>
+        <td>utf8_general_ci</td>
+        <td>NO</td>
+        <td>MUL</td>
+        <td>None</td>
+        <td></td>
+        <td>category name</td>
+    </tr>
+    
+    <tr>
+        <td>count</td>
+        <td>int(11) unsigned</td>
+        <td>None</td>
+        <td>NO</td>
+        <td></td>
+        <td>1</td>
+        <td></td>
+        <td>feature count</td>
+    </tr>
+    
+</table>
+
+                                </div>
+                                <hr/>
+                            </div>
                         
+                            <div id="docclass_fisher" class="section">
+                                <div class="header">
+                                    <h2 id="docclass_fisher">docclass_fisher<a class="headerlink" href="#docclass_fisher" title="Permalink to this headline">¶</a></h2>
+                                    <p>keep a setting for fisher classification</p>
+                                </div>
+                                <div>
+                                    
+    <table>
+    <tr>
+        <th>Field</th>
+        <th>Type</th>
+        <th>Collation</th>
+        <th>Null</th>
+        <th>Key</th>
+        <th>Default</th>
+        <th>Extra</th>
+        <th>Comment</th>
+    </tr>
+    
+    <tr>
+        <td>id</td>
+        <td>int(11)</td>
+        <td>None</td>
+        <td>NO</td>
+        <td>PRI</td>
+        <td>None</td>
+        <td>auto_increment</td>
+        <td></td>
+    </tr>
+    
+    <tr>
+        <td>category</td>
+        <td>varchar(64)</td>
+        <td>utf8_general_ci</td>
+        <td>NO</td>
+        <td>UNI</td>
+        <td>None</td>
+        <td></td>
+        <td>category name</td>
+    </tr>
+    
+    <tr>
+        <td>minimum</td>
+        <td>double</td>
+        <td>None</td>
+        <td>NO</td>
+        <td></td>
+        <td>None</td>
+        <td></td>
+        <td></td>
+    </tr>
+    
+</table>
+
+                                </div>
+                                <hr/>
+                            </div>
                         
-                        <div id="docclass_fisher" class="section">
-                            <h2>docclass_fisher<a class="headerlink" href="#welcome-to-sample-s-documentation" title="Permalink to this headline">¶</a></h2>
-                            <table>
-                                <tr>
-                                    <th>Field</th>
-                                    <th>Type</th>
-                                    <th>Collation</th>
-                                    <th>Null</th>
-                                    <th>Key</th>
-                                    <th>Default</th>
-                                    <th>Extra</th>
-                                    <th>Comment</th>
-                                </tr>
-                                
-                                <tr>
-                                    <td>id</td>
-                                    <td>int(11)</td>
-                                    <td>None</td>
-                                    <td>NO</td>
-                                    <td>PRI</td>
-                                    <td>None</td>
-                                    <td>auto_increment</td>
-                                    <td></td>
-                                </tr>
-                                
-                                <tr>
-                                    <td>category</td>
-                                    <td>varchar(64)</td>
-                                    <td>utf8_general_ci</td>
-                                    <td>NO</td>
-                                    <td>UNI</td>
-                                    <td>None</td>
-                                    <td></td>
-                                    <td>category name</td>
-                                </tr>
-                                
-                                <tr>
-                                    <td>minimum</td>
-                                    <td>double</td>
-                                    <td>None</td>
-                                    <td>NO</td>
-                                    <td></td>
-                                    <td>None</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                
-                            </table>
-                        </div>
+                            <div id="docclass_naivebayes" class="section">
+                                <div class="header">
+                                    <h2 id="docclass_naivebayes">docclass_naivebayes<a class="headerlink" href="#docclass_naivebayes" title="Permalink to this headline">¶</a></h2>
+                                    <p>keep a setting for fisher naivebayes</p>
+                                </div>
+                                <div>
+                                    
+    <table>
+    <tr>
+        <th>Field</th>
+        <th>Type</th>
+        <th>Collation</th>
+        <th>Null</th>
+        <th>Key</th>
+        <th>Default</th>
+        <th>Extra</th>
+        <th>Comment</th>
+    </tr>
+    
+    <tr>
+        <td>id</td>
+        <td>int(11)</td>
+        <td>None</td>
+        <td>NO</td>
+        <td>PRI</td>
+        <td>None</td>
+        <td>auto_increment</td>
+        <td></td>
+    </tr>
+    
+    <tr>
+        <td>category</td>
+        <td>varchar(64)</td>
+        <td>utf8_general_ci</td>
+        <td>NO</td>
+        <td></td>
+        <td>None</td>
+        <td></td>
+        <td>category name</td>
+    </tr>
+    
+    <tr>
+        <td>threshold</td>
+        <td>double</td>
+        <td>None</td>
+        <td>NO</td>
+        <td>UNI</td>
+        <td>None</td>
+        <td></td>
+        <td></td>
+    </tr>
+    
+</table>
+
+                                </div>
+                                <hr/>
+                            </div>
                         
-                        <hr/>
-                        
-                        
-                        <div id="docclass_naivebayes" class="section">
-                            <h2>docclass_naivebayes<a class="headerlink" href="#welcome-to-sample-s-documentation" title="Permalink to this headline">¶</a></h2>
-                            <table>
-                                <tr>
-                                    <th>Field</th>
-                                    <th>Type</th>
-                                    <th>Collation</th>
-                                    <th>Null</th>
-                                    <th>Key</th>
-                                    <th>Default</th>
-                                    <th>Extra</th>
-                                    <th>Comment</th>
-                                </tr>
-                                
-                                <tr>
-                                    <td>id</td>
-                                    <td>int(11)</td>
-                                    <td>None</td>
-                                    <td>NO</td>
-                                    <td>PRI</td>
-                                    <td>None</td>
-                                    <td>auto_increment</td>
-                                    <td></td>
-                                </tr>
-                                
-                                <tr>
-                                    <td>category</td>
-                                    <td>varchar(64)</td>
-                                    <td>utf8_general_ci</td>
-                                    <td>NO</td>
-                                    <td></td>
-                                    <td>None</td>
-                                    <td></td>
-                                    <td>category name</td>
-                                </tr>
-                                
-                                <tr>
-                                    <td>threshold</td>
-                                    <td>double</td>
-                                    <td>None</td>
-                                    <td>NO</td>
-                                    <td>UNI</td>
-                                    <td>None</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                
-                            </table>
-                        </div>
-                        
-                        <hr/>
-                        
-                        
-                        <div id="wiki_title" class="section">
-                            <h2>wiki_title<a class="headerlink" href="#welcome-to-sample-s-documentation" title="Permalink to this headline">¶</a></h2>
-                            <table>
-                                <tr>
-                                    <th>Field</th>
-                                    <th>Type</th>
-                                    <th>Collation</th>
-                                    <th>Null</th>
-                                    <th>Key</th>
-                                    <th>Default</th>
-                                    <th>Extra</th>
-                                    <th>Comment</th>
-                                </tr>
-                                
-                                <tr>
-                                    <td>id</td>
-                                    <td>int(11)</td>
-                                    <td>None</td>
-                                    <td>NO</td>
-                                    <td>PRI</td>
-                                    <td>None</td>
-                                    <td>auto_increment</td>
-                                    <td></td>
-                                </tr>
-                                
-                                <tr>
-                                    <td>name</td>
-                                    <td>varchar(255)</td>
-                                    <td>utf8_general_ci</td>
-                                    <td>NO</td>
-                                    <td>MUL</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>title</td>
-                                </tr>
-                                
-                                <tr>
-                                    <td>locale</td>
-                                    <td>varchar(2)</td>
-                                    <td>utf8_general_ci</td>
-                                    <td>NO</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                
-                            </table>
-                        </div>
-                        
-                        <hr/>
-                        
-                        
-                        <div id="docclass_fc" class="section">
-                            <h2>docclass_fc<a class="headerlink" href="#welcome-to-sample-s-documentation" title="Permalink to this headline">¶</a></h2>
-                            <table>
-                                <tr>
-                                    <th>Field</th>
-                                    <th>Type</th>
-                                    <th>Collation</th>
-                                    <th>Null</th>
-                                    <th>Key</th>
-                                    <th>Default</th>
-                                    <th>Extra</th>
-                                    <th>Comment</th>
-                                </tr>
-                                
-                                <tr>
-                                    <td>id</td>
-                                    <td>int(11)</td>
-                                    <td>None</td>
-                                    <td>NO</td>
-                                    <td>PRI</td>
-                                    <td>None</td>
-                                    <td>auto_increment</td>
-                                    <td></td>
-                                </tr>
-                                
-                                <tr>
-                                    <td>feature</td>
-                                    <td>varchar(64)</td>
-                                    <td>utf8_general_ci</td>
-                                    <td>NO</td>
-                                    <td>MUL</td>
-                                    <td>None</td>
-                                    <td></td>
-                                    <td>feature name</td>
-                                </tr>
-                                
-                                <tr>
-                                    <td>category</td>
-                                    <td>varchar(64)</td>
-                                    <td>utf8_general_ci</td>
-                                    <td>NO</td>
-                                    <td>MUL</td>
-                                    <td>None</td>
-                                    <td></td>
-                                    <td>category name</td>
-                                </tr>
-                                
-                                <tr>
-                                    <td>count</td>
-                                    <td>int(11) unsigned</td>
-                                    <td>None</td>
-                                    <td>NO</td>
-                                    <td></td>
-                                    <td>1</td>
-                                    <td></td>
-                                    <td>feature count</td>
-                                </tr>
-                                
-                            </table>
-                        </div>
-                        
+                            <div id="wiki_title" class="section">
+                                <div class="header">
+                                    <h2 id="wiki_title">wiki_title<a class="headerlink" href="#wiki_title" title="Permalink to this headline">¶</a></h2>
+                                    <p>store wiki title</p>
+                                </div>
+                                <div>
+                                    
+    <table>
+    <tr>
+        <th>Field</th>
+        <th>Type</th>
+        <th>Collation</th>
+        <th>Null</th>
+        <th>Key</th>
+        <th>Default</th>
+        <th>Extra</th>
+        <th>Comment</th>
+    </tr>
+    
+    <tr>
+        <td>id</td>
+        <td>int(11)</td>
+        <td>None</td>
+        <td>NO</td>
+        <td>PRI</td>
+        <td>None</td>
+        <td>auto_increment</td>
+        <td></td>
+    </tr>
+    
+    <tr>
+        <td>name</td>
+        <td>varchar(255)</td>
+        <td>utf8_general_ci</td>
+        <td>NO</td>
+        <td>MUL</td>
+        <td></td>
+        <td></td>
+        <td>title</td>
+    </tr>
+    
+    <tr>
+        <td>locale</td>
+        <td>varchar(2)</td>
+        <td>utf8_general_ci</td>
+        <td>NO</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    
+</table>
+
+                                </div>
+                                <hr/>
+                            </div>
                         
                     </div>
-                    
                     <footer>
-                        <hr/>
                         <div role="contentinfo">
-                            <p>&copy; Copyright 2014, Satoshi Okami.</p>
+                            <p>&copy; Copyright 2014, All rights reserved.</p>
                         </div>
                         <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
                     </footer>
@@ -345,19 +363,15 @@
             </div>
         </section>
     </div>
+<script type="text/javascript" src="static/jquery.js"></script>
+<script type="text/javascript" src="static/underscore.js"></script>
+<script type="text/javascript" src="static/js/theme.js"></script>
+<script type="text/javascript" src="static/js/search.js"></script>
 <script type="text/javascript">
-
-// var DOCUMENTATION_OPTIONS = {
-//     URL_ROOT:'./',
-//     VERSION:'',
-//     COLLAPSE_INDEX:false,
-//     FILE_SUFFIX:'.html',
-//     HAS_SOURCE:    true
-// };
 
 function update_navi(hash) {
     $('.wy-menu li').removeClass('current');
-    $('.wy-menu li[data-hash=' + hash + ']').addClass('current');
+    $('.wy-menu li[data-hash=' + hash + ']').toggleClass('current');
 }
 
 $(function() {
@@ -366,17 +380,10 @@ $(function() {
         var hash = $(this).parent().attr('data-hash');
         update_navi(hash);
     });
-});
-
-</script>
-<script type="text/javascript" src="./static/jquery.js"></script>
-<script type="text/javascript" src="./static/underscore.js"></script>
-<!-- <script type="text/javascript" src="./static/doctools.js"></script> -->
-<script type="text/javascript" src="./static/js/theme.js"></script>    
-<script type="text/javascript">
-jQuery(function () {
+    
     SphinxRtdTheme.StickyNav.enable();
 });
+
 </script>
 </body>
 </html>
