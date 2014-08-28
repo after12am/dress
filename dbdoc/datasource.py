@@ -97,7 +97,6 @@ class SQLite3(object):
         for table in self.get_tables():
             res += self.get_create_statement(table) + ";\n\n"
         return res
-        
 
 class PostgreSQL(object):
     
