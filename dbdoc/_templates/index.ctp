@@ -67,25 +67,7 @@
     </div>
 <script type="text/javascript" src="static/jquery.js"></script>
 <script type="text/javascript" src="static/underscore.js"></script>
+<script type="text/javascript" src="static/js/jquery.highlight-4.closure.js"></script>
 <script type="text/javascript" src="static/js/theme.js"></script>
-<script type="text/javascript" src="static/js/search.js"></script>
-<script type="text/javascript">
-
-function update_navi(hash) {
-    $('.wy-menu li').removeClass('current');
-    $('.wy-menu li[data-hash=' + hash + ']').toggleClass('current');
-}
-
-$(function() {
-    update_navi(location.hash.split('#')[1]);
-    $('.wy-menu li a').click(function() {
-        var hash = $(this).parent().attr('data-hash');
-        update_navi(hash);
-    });
-    
-    SphinxRtdTheme.StickyNav.enable();
-});
-
-</script>
 </body>
 </html>
