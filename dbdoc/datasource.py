@@ -138,15 +138,15 @@ class PostgreSQL(object):
             tc.constraint_name,
             tc.constraint_type
         from
-        	information_schema.table_constraints as tc
+            information_schema.table_constraints as tc
         inner join
-            information_schema.constraint_column_usage as ccu on 
+                information_schema.constraint_column_usage as ccu on 
                 tc.table_catalog = ccu.table_catalog 
             and tc.table_schema = ccu.table_schema 
             and tc.table_name = ccu.table_name 
             and tc.constraint_name = ccu.constraint_name
         where
-        	tc.table_catalog = '%s'
+            tc.table_catalog = '%s'
         and tc.table_name = '%s'
         and ccu.column_name = '%s'
     """
