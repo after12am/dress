@@ -65,8 +65,8 @@
             </div>
         </section>
     </div>
-<script type="text/javascript" src="static/jquery.js"></script>
-<script type="text/javascript" src="static/underscore.js"></script>
+<script type="text/javascript" src="static/js/jquery.js"></script>
+<script type="text/javascript" src="static/js/underscore.js"></script>
 <script type="text/javascript" src="static/js/jquery.highlight-4.closure.js"></script>
 <script type="text/javascript" src="static/js/theme.js"></script>
 </body>
