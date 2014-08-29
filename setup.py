@@ -6,6 +6,7 @@ setup(
     packages=find_packages(),
     install_requires=[
         'MySQL-python',
+        'PyGreSQL',
         'jinja2'
     ],
     entry_points={
