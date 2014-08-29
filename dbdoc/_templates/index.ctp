@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{{database.name}} {{version}} - database design documentation</title>
+<title>Welcome to {{database.name}} - {{database.name}} {{version}} d3</title>
 <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
 <link rel="stylesheet" href="static/css/custom.css" type="text/css" />
@@ -37,8 +37,13 @@
             <div class="wy-nav-content">
                 <div class="rst-content">
                     <div class="navigation" role="navigation" aria-label="breadcrumbs navigation">
-                        <h1>database design documentation<a class="headerlink" href="#database-design-documentation" title="Permalink to this headline">¶</a></h1>
-                        <p class="wy-breadcrumbs-aside"><a href="sql.txt" class="fa"> View SQL</a></p>
+                        <ul class="wy-breadcrumbs">
+                            <li><a href="#">D3</a> »</li>
+                            <li>Welcome to {{database.name}}</li>
+                            <li class="wy-breadcrumbs-aside">
+                                <a href="sql.txt"> View SQL</a>
+                            </li>
+                          </ul>
                         <hr/>
                     </div>
                     <div role="main" class="document">

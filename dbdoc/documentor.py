@@ -102,7 +102,7 @@ class IndexTemplate(Template):
         self.buff = Template.env.get_template('index.ctp').render(
             datasource = db.__class__.__name__.lower(),
             database = data,
-            version = version if version else '',
+            version = version,
             author = author,
             today = datetime.datetime.today()
         )

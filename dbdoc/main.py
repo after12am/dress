@@ -85,7 +85,7 @@ def dbdoc_main(argv=sys.argv[1:]):
         dest="version",
         help="version",
         type="string",
-        default=None
+        default="&alpha;"
     )
     
     parser.add_option(
