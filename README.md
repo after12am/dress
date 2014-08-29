@@ -1,12 +1,7 @@
 dbdoc
 =====
 
-mysql database specification exporter in html format
+MySQL, SQLite3 and PostgreSQL supported Database Design Documentor
 
 
 ![example](http://after12am.github.io/dbdoc/cover.png)
-
-## Required
-
-* jinja2
-* MySQL-python
