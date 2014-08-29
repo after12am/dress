@@ -42,6 +42,10 @@
                         <hr/>
                     </div>
                     <div role="main" class="document">
+                        <div class="error" style="display: none">
+                            <h2>Oops! Sorry,</h2>
+                            <p>Your search did not match any documents. Please make sure that all words are spelled correctly.</p>
+                        </div>
                         {% for table, item in database.tables.iteritems() %}
                             <div id="{{table}}" class="section">
                                 <div class="header">

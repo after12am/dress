@@ -53,6 +53,7 @@ $(function() {
         var word = $(this).val();
         var $docs = $('.document > .section');
         var $menu = $('.wy-menu .simple a');
+        var $err = $('.document .error');
         
         function filter() {
             
@@ -72,7 +73,15 @@ $(function() {
         
         if (word.length > 0) {
             $docs.each(filter);
+            
+            if ($docs.find('.highlight').length > 0) {
+                $err.hide();
+            } else {
+                $err.show();
+            }
+            
         } else {
+            $err.hide();
             $docs.removeHighlight().show();
             $menu.show();
         }
