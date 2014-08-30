@@ -4,18 +4,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>kiki  - database design documentation</title>
+<title>Welcome to kiki - kiki &alpha; database design documentation</title>
 <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
 <link rel="stylesheet" href="static/css/custom.css" type="text/css" />
-<link rel="top" title="kiki  database documentation" href="#"/>
+<link rel="top" title="kiki &alpha; database documentation" href="#"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
 </head>
 <body class="wy-body-for-nav" role="document">
     <div class="wy-grid-for-nav">
         <nav data-toggle="wy-nav-shift" class="wy-nav-side">
             <div class="wy-side-nav-search">
-                <a href="#" class="fa fa-home"> kiki</a>
+                <a href="/" class="fa fa-home"> kiki</a>
                 <div role="search">
                     <input class="search" type="text" name="q" placeholder="Search word" />
                 </div>
@@ -45,11 +45,20 @@
             <div class="wy-nav-content">
                 <div class="rst-content">
                     <div class="navigation" role="navigation" aria-label="breadcrumbs navigation">
-                        <h1>database design documentation<a class="headerlink" href="#database-design-documentation" title="Permalink to this headline">¶</a></h1>
-                        <p class="wy-breadcrumbs-aside"><a href="sql.txt" class="fa"> View SQL</a></p>
+                        <ul class="wy-breadcrumbs">
+                            <li><a href="/">ddd</a> »</li>
+                            <li>Welcome to kiki</li>
+                            <li class="wy-breadcrumbs-aside">
+                                <a href="sql.txt"> View SQL</a>
+                            </li>
+                          </ul>
                         <hr/>
                     </div>
                     <div role="main" class="document">
+                        <div class="error" style="display: none">
+                            <h2>Oops! Sorry,</h2>
+                            <p>Your search did not match any documents. Please make sure that all words are spelled correctly.</p>
+                        </div>
                         
                             <div id="docclass_cc" class="section">
                                 <div class="header">
@@ -363,27 +372,9 @@
             </div>
         </section>
     </div>
-<script type="text/javascript" src="static/jquery.js"></script>
-<script type="text/javascript" src="static/underscore.js"></script>
+<script type="text/javascript" src="static/js/jquery.js"></script>
+<script type="text/javascript" src="static/js/underscore.js"></script>
+<script type="text/javascript" src="static/js/jquery.highlight-4.closure.js"></script>
 <script type="text/javascript" src="static/js/theme.js"></script>
-<script type="text/javascript" src="static/js/search.js"></script>
-<script type="text/javascript">
-
-function update_navi(hash) {
-    $('.wy-menu li').removeClass('current');
-    $('.wy-menu li[data-hash=' + hash + ']').toggleClass('current');
-}
-
-$(function() {
-    update_navi(location.hash.split('#')[1]);
-    $('.wy-menu li a').click(function() {
-        var hash = $(this).parent().attr('data-hash');
-        update_navi(hash);
-    });
-    
-    SphinxRtdTheme.StickyNav.enable();
-});
-
-</script>
 </body>
 </html>
