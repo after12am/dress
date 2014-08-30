@@ -102,7 +102,7 @@ def dbdoc_main(argv=sys.argv[1:]):
     datasource.select(options.datasource)
     
     if not datasource.connect(options):
-        sys.exit("Failed to connect datasource")
+        sys.exit("Failed to connect datasource. No datasource selected")
     
     # export database document
     documentor.publish(database=options.database, author=options.author, version=options.version)
