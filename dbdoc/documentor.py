@@ -99,19 +99,21 @@ class IndexTemplate(Template):
             data['tables'][table]['comment'] = db.get_table_comment(table)
             data['tables'][table]['columns'] = db.get_columns(table)
         # running data into template...
-        self.buff = Template.env.get_template('index.ctp').render(
+        data = Template.env.get_template('index.ctp').render(
             datasource = db.__class__.__name__.lower(),
             database = data,
             version = version,
             author = author,
             today = datetime.datetime.today()
         )
+        super(IndexTemplate, self).render(data)
 
 class SQLTemplate(Template):
     
     def render(self):
         db = datasource.get_instance()
-        self.buff = db.get_create_statements()
+        data = db.get_create_statements()
+        super(SQLTemplate, self).render(data)
         
 # create database documentation
 def publish(database, author, version):
