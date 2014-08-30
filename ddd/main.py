@@ -2,7 +2,7 @@
 import os, sys, documentor
 from optparse import OptionParser
 
-def dbdoc_main(argv=sys.argv[1:]):
+def ddd_main(argv=sys.argv[1:]):
     
     parser = OptionParser(
         usage="%prog [options]",
@@ -40,6 +40,7 @@ def dbdoc_main(argv=sys.argv[1:]):
         default=''
     )
     
+    # when postgresql, port number 5432
     parser.add_option(
         "-P", "--port", 
         dest="port",
@@ -100,4 +101,4 @@ def dbdoc_main(argv=sys.argv[1:]):
     # export database document
     documentor.publish(options)
 
-if __name__ == '__main__': dbdoc_main()
+if __name__ == '__main__': ddd_main()

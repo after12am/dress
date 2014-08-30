@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='dbdoc',
+    name='ddd',
     version='pre-alpha',
     packages=find_packages(),
     install_requires=[
@@ -11,7 +11,7 @@ setup(
     ],
     entry_points={
         'console_scripts':
-            'dbdoc = dbdoc.main:dbdoc_main'
+            'ddd = ddd.main:ddd_main'
     },
     zip_safe=False,
     classifiers=[
