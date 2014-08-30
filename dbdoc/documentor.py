@@ -87,10 +87,10 @@ class Template(File):
 
 class IndexTemplate(Template):
     
-    def render(self, database, author, version):
+    def render(self, author, version):
         db = datasource.get_instance()
         data = {}
-        data['name']   = database,
+        data['name']   = db.database,
         # can't understand why there is a need to be converted to a string type
         data['name']   = data['name'][0]
         data['tables'] = OrderedDict()
@@ -116,10 +116,18 @@ class SQLTemplate(Template):
         super(SQLTemplate, self).render(data)
         
 # create database documentation
-def publish(database, author, version):
+def publish(options):
+    
+    # select datasource and connect to database
+    import datasource
+    datasource.select(options.datasource)
+    
+    if not datasource.connect(options):
+        sys.exit("Failed to connect datasource. No datasource selected")
+    
     # create database documentation page
     doc = IndexTemplate()
-    doc.render(database=database, author=author, version=version)
+    doc.render(author=options.author, version=options.version)
     doc.save()
     
     # create `create statements` page
@@ -128,10 +136,13 @@ def publish(database, author, version):
     stmts.save()
     
     # packaging the document
-    documentor = Documentor('dbdoc_' + database)
+    documentor = Documentor('dbdoc_' + options.database)
     documentor.add(__static__, 'static')
     documentor.add(doc.path, 'index.html')
     documentor.add(stmts.path, 'sql.txt')
+    
+    # disconnecting from database
+    datasource.close()
     
     # exporting the document
     if not documentor.exists():
