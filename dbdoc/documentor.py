@@ -8,14 +8,17 @@ __dirname__  = os.path.dirname(os.path.abspath(__file__))
 __static__   = os.path.join(__dirname__, '_static')
 __template__ = '_templates'
 
-class Documentor(object):
-     
-    def __init__(self, name):
-        self.name = name
-        self.temp = self._create()
+class Directory(object):
+    
+    def __init__(self, dirpath = None):
+        self.temp = dirpath if dirpath else self._create()
     
     def __del__(self):
         self._destroy()
+    
+    @property
+    def path(self):
+        return self.temp
     
     # create docs and return the path
     def _create(self):
@@ -24,7 +27,6 @@ class Documentor(object):
     def _destroy(self):
         pass
     
-    # dest is relative path from docs
     def add(self, src, dest):
         output = os.path.join(self.temp, dest)
         copy = shutil.copytree if os.path.isdir(src) else shutil.copyfile
@@ -36,7 +38,19 @@ class Documentor(object):
             shutil.rmtree(path)
         elif os.path.exists(path):
             os.remove(path)
+
+class Documentor(Directory):
+     
+    def __init__(self, name):
+        self.name = name
+        self.temp = self._create()
     
+    # dest is relative path from docs
+    def add(self, file_or_dir, dest):
+        output = os.path.join(self.temp, dest)
+        copy = shutil.copytree if os.path.isdir(file_or_dir.path) else shutil.copyfile
+        copy(file_or_dir.path, output)
+        
     # delete docs
     def deploy(self):
         shutil.move(self.temp, './')
@@ -125,6 +139,8 @@ def publish(options):
     if not datasource.connect(options):
         sys.exit("Failed to connect datasource. No datasource selected")
     
+    static = Directory(__static__)
+    
     # create database documentation page
     doc = IndexTemplate()
     doc.render(author=options.author, version=options.version)
@@ -137,9 +153,9 @@ def publish(options):
     
     # packaging the document
     documentor = Documentor('dbdoc_' + options.database)
-    documentor.add(__static__, 'static')
-    documentor.add(doc.path, 'index.html')
-    documentor.add(stmts.path, 'sql.txt')
+    documentor.add(static, 'static')
+    documentor.add(doc, 'index.html')
+    documentor.add(stmts, 'sql.txt')
     
     # disconnecting from database
     datasource.close()
