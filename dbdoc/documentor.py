@@ -139,6 +139,7 @@ def publish(options):
     if not datasource.connect(options):
         sys.exit("Failed to connect datasource. No datasource selected")
     
+    proj_name = "%s_%s" % (options.database, options.version) if options.version else options.database
     static = Directory(__static__)
     
     # create database documentation page
@@ -152,7 +153,7 @@ def publish(options):
     stmts.save()
     
     # packaging the document
-    documentor = Documentor('dbdoc_' + options.database)
+    documentor = Documentor(proj_name)
     documentor.add(static, 'static')
     documentor.add(doc, 'index.html')
     documentor.add(stmts, 'sql.txt')
@@ -164,4 +165,4 @@ def publish(options):
     if not documentor.exists():
         documentor.deploy()
     else:
-        print "File exists error\n"
+        sys.exit("Failed to create documentation. File exists error")
