@@ -38,7 +38,7 @@
                 <div class="rst-content">
                     <div class="navigation" role="navigation" aria-label="breadcrumbs navigation">
                         <ul class="wy-breadcrumbs">
-                            <li><a href="/">ddd</a> »</li>
+                            <li><a href="/">doc</a> »</li>
                             <li>Welcome to {{database.name}}</li>
                             <li class="wy-breadcrumbs-aside">
                                 <a href="sql.txt"> View SQL</a>
