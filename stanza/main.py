@@ -2,7 +2,7 @@
 import os, sys, documentor
 from optparse import OptionParser
 
-def stanza_main(argv=sys.argv[1:]):
+def rhyme_main(argv=sys.argv[1:]):
     
     parser = OptionParser(
         usage="%prog [options]",
@@ -101,4 +101,4 @@ def stanza_main(argv=sys.argv[1:]):
     # export database document
     documentor.publish(options)
 
-if __name__ == '__main__': stanza_main()
+if __name__ == '__main__': rhyme_main()

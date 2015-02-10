@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='stanza',
+    name='rhyme',
     version='pre-alpha',
     packages=find_packages(),
     install_requires=[
@@ -11,7 +11,7 @@ setup(
     ],
     entry_points={
         'console_scripts':
-            'stanza = stanza.main:stanza_main'
+            'rhyme = rhyme.main:rhyme_main'
     },
     zip_safe=False,
     classifiers=[
