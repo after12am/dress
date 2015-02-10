@@ -7,7 +7,8 @@ setup(
     install_requires=[
         'MySQL-python',
         'PyGreSQL',
-        'jinja2'
+        'jinja2',
+        'yaml'
     ],
     entry_points={
         'console_scripts':

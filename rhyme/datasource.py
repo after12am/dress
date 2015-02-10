@@ -8,7 +8,7 @@ class MySQL(object):
         self.cursor = None
         self.host = host
         self.user = user
-        self.password = password
+        self.password = password if password is not None else ''
         self.database = database
         self.charset = charset
     
@@ -261,14 +261,14 @@ class DataSource(object):
     
     @classmethod
     def connect(cls, options):
-        if cls.datasource == 'mysql':
+        if cls.datasource == 'Database/MySQL':
             cls.instance = MySQL(host=options.host, user=options.user, \
                 password=options.password, charset=options.charset, database=options.database)
-        if cls.datasource == 'sqlite3':
-            cls.instance = SQLite3(options.database)
-        if cls.datasource == 'postgresql':
+        if cls.datasource == 'Database/PostgreSQL':
             cls.instance = PostgreSQL(host=options.host, user=options.user, \
                 password=options.password, database=options.database, port=options.port)
+        if cls.datasource == 'Database/SQLite3':
+            cls.instance = SQLite3(options.database)
         if hasattr(cls, 'instance') and cls.instance:
             cls.instance.connect()
             return True

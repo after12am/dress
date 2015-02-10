@@ -9,6 +9,18 @@ rhyme is a database design documentor. This console application generates databa
 * PostgreSQL
 * SQLite3
 
+
+## Usage
+
+```
+$ python rhyme config --datasource mysql
+$ python rhyme export
+```
+
+## Note
+
+Under development.
+
 ## License
 
 Copyright (c) 2014-2015 Satoshi Okami. See the LICENSE file for license rights and limitations (MIT).
