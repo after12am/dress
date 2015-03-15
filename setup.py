@@ -8,7 +8,7 @@ setup(
         'MySQL-python',
         'PyGreSQL',
         'jinja2',
-        'yaml'
+        'PyYAML'
     ],
     entry_points={
         'console_scripts':
