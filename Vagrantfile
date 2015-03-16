@@ -10,6 +10,17 @@ apt-get -y update >/dev/null 2>&1
 
 SCRIPT
 
+$install_modules = <<SCRIPT
+
+echo "Installing python modules..."
+apt-get -y install python-pip >/dev/null 2>&1
+apt-get -y install python-mysqldb >/dev/null 2>&1
+apt-get -y install python-pygresql >/dev/null 2>&1
+pip install Jinja2==2.7.3 >/dev/null 2>&1
+pip install PyYAML==3.11 >/dev/null 2>&1
+
+SCRIPT
+
 $install_databases = <<SCRIPT
 
 echo "Installing SQLite3..."
@@ -32,5 +43,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = 'ubuntu/trusty32'
   config.vm.network :private_network, ip:"192.168.33.10"
   config.vm.provision "shell", inline: $update_packages
+  config.vm.provision "shell", inline: $install_modules
   config.vm.provision "shell", inline: $install_databases
 end
