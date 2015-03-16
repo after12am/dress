@@ -1,19 +1,53 @@
 # encoding: utf-8
-import os, sys, re, subprocess
+import os, sys, re, subprocess, defs
+from config import config
+from abc import ABCMeta, abstractmethod
 
-class MySQL(object):
+class DataSource(object):
     
-    def __init__(self, host, user, password, charset, database):
+    __metaclass__ = ABCMeta
+    
+    def __init__(self):
         self.conn = None
         self.cursor = None
+    
+    def __del__(self):
+        self.close()
+    
+    @abstractmethod
+    def connect(self):
+        pass
+    
+    @abstractmethod
+    def close(self):
+        pass
+    
+    @abstractmethod
+    def get_tables(self):
+        pass
+    
+    @abstractmethod
+    def get_columns(self, table):
+        pass
+    
+    @abstractmethod
+    def get_table_comment(self, table):
+        pass
+    
+    @abstractmethod
+    def get_create_statements(self):
+        pass
+
+
+class MySQL(DataSource):
+    
+    def __init__(self, host, user, password, charset, database):
+        super(MySQL, self).__init__()
         self.host = host
         self.user = user
         self.password = password if password is not None else ''
         self.database = database
         self.charset = charset
-    
-    def __del__(self):
-        self.close()
     
     def connect(self):
         import MySQLdb
@@ -52,16 +86,13 @@ class MySQL(object):
             res += self.get_create_statement(table) + ";\n\n"
         return res
 
-class SQLite3(object):
+
+class SQLite3(DataSource):
     
     def __init__(self, database):
-        self.conn = None
-        self.cursor = None
+        super(SQLite3, self).__init__()
         self.database = database
         self.timeout = 5000
-    
-    def __del__(self):
-        self.close()
     
     def connect(self):
         import sqlite3
@@ -83,7 +114,7 @@ class SQLite3(object):
         return self.cursor.fetchall()
     
     def get_table_comment(self, table):
-        # can not set table comment in sqlite
+        # SQLite3 does not support comment
         return ''
     
     # this is not compatible with other datasources
@@ -98,7 +129,8 @@ class SQLite3(object):
             res += self.get_create_statement(table) + ";\n\n"
         return res
 
-class PostgreSQL(object):
+
+class PostgreSQL(DataSource):
     
     _get_columns_query = """
         select
@@ -164,16 +196,12 @@ class PostgreSQL(object):
     """
     
     def __init__(self, host, user, password, database, port):
-        self.conn = None
-        self.cursor = None
+        super(PostgreSQL, self).__init__()
         self.host = host
         self.user = user
         self.password = password
         self.database = database
         self.port = port
-    
-    def __del__(self):
-        self.close()
     
     def connect(self):
         import pgdb
@@ -244,49 +272,41 @@ class PostgreSQL(object):
         cmd = cmd % (self.user, self.host, self.database, self.port)
         p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
         p.wait()
-        res = p.stdout.readlines()
-        if len(res) > 0: return "\n".join(res)
+        res = p.stdout.readlines().strip()
+        if len(res) > 0:
+            return "\n".join(res)
         sys.exit("\n".join(p.stderr.readlines()))
 
-class DataSource(object):
+
+class DB(object):
     
-    def __new__(cls, *args, **kwargs):
-        if hasattr(cls, 'instance'):
+    @classmethod
+    def getinstance(cls):
+        if hasattr(cls, 'instance') and cls.instance:
             return cls.instance
-        return None
-    
-    @classmethod
-    def select(cls, datasource):
-        cls.datasource = datasource
-    
-    @classmethod
-    def connect(cls, options):
-        if cls.datasource == 'Database/MySQL':
+        
+        options = config(defs.config_name)
+        
+        if options.datasource == 'Database/MySQL':
             cls.instance = MySQL(host=options.host, user=options.user, \
                 password=options.password, charset=options.charset, database=options.database)
-        if cls.datasource == 'Database/PostgreSQL':
+            cls.instance.connect()
+            return cls.instance
+        
+        if options.datasource == 'Database/PostgreSQL':
             cls.instance = PostgreSQL(host=options.host, user=options.user, \
                 password=options.password, database=options.database, port=options.port)
-        if cls.datasource == 'Database/SQLite3':
-            cls.instance = SQLite3(options.database)
-        if hasattr(cls, 'instance') and cls.instance:
             cls.instance.connect()
-            return True
-        return False
+            return cls.instance
+        
+        if options.datasource == 'Database/SQLite3':
+            cls.instance = SQLite3(options.database)
+            cls.instance.connect()
+            return cls.instance
+        
+        sys.exit("Failed to connect datasource. No datasource selected")
     
     @classmethod
     def close(cls):
         if hasattr(cls, 'instance') and cls.instance:
             cls.instance.close()
-
-def select(datasource):
-    DataSource.select(datasource)
-
-def connect(options):
-    return DataSource.connect(options)
-
-def close():
-    DataSource.close()
-
-def get_instance():
-    return DataSource()

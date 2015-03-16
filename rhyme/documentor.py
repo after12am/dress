@@ -1,12 +1,8 @@
 # encoding: utf-8
-import os, sys, shutil, tempfile, datetime, datasource
+import os, sys, shutil, tempfile, datetime, datasource, defs
 from jinja2 import Environment, FileSystemLoader
 from collections import OrderedDict
 import helper
-
-__dirname__  = os.path.dirname(os.path.abspath(__file__))
-__static__   = os.path.join(__dirname__, '_static')
-__template__ = '_templates'
 
 class Directory(object):
     
@@ -58,7 +54,7 @@ class Documentor(Directory):
     
     # whether docs exist or not
     def exists(self):
-        return os.path.exists(os.path.join(__dirname__, self.name))
+        return os.path.exists(os.path.join(defs.dirname, self.name))
 
 class File(object):
     
@@ -94,7 +90,7 @@ class File(object):
 
 class Template(File):
     
-    env = Environment(loader=FileSystemLoader(__template__))
+    env = Environment(loader=FileSystemLoader(defs.template))
     
     def __init__(self):
         super(Template, self).__init__()
@@ -102,7 +98,7 @@ class Template(File):
 class IndexTemplate(Template):
     
     def render(self, docname, author, version):
-        db = datasource.get_instance()
+        db = datasource.DB.getinstance()
         data = {}
         data['name']   = docname,
         # can't understand why there is a need to be converted to a string type
@@ -125,44 +121,44 @@ class IndexTemplate(Template):
 class SQLTemplate(Template):
     
     def render(self):
-        db = datasource.get_instance()
+        db = datasource.DB.getinstance()
         data = db.get_create_statements()
         super(SQLTemplate, self).render(data)
         
 # create database documentation
-def publish(options):
-    
-    # select datasource and connect to database
-    import datasource
-    datasource.select(options.datasource)
-    
-    if not datasource.connect(options):
-        sys.exit("Failed to connect datasource. No datasource selected")
-    
-    project = "%s_%s" % (options.docname, options.version) if options.version else options.docname
-    static = Directory(__static__)
-    
-    # create database documentation page
-    doc = IndexTemplate()
-    doc.render(docname=options.docname, author=options.author, version=options.version)
-    doc.save()
-    
-    # create `create statements` page
-    stmts = SQLTemplate()
-    stmts.render()
-    stmts.save()
-    
-    # packaging the document
-    documentor = Documentor(project)
-    documentor.add(static, 'static')
-    documentor.add(doc, 'index.html')
-    documentor.add(stmts, 'sql.txt')
-    
-    # disconnecting from database
-    datasource.close()
-    
-    # exporting the document
-    if not documentor.exists():
-        documentor.deploy()
-    else:
-        sys.exit("Failed to create documentation. File exists error")
+# def publish():
+#     
+#     
+#     a = datasource.DB.connect()
+#     print a
+#     sys.exit()
+#     from config import config
+#     options = config(defs.config_name)
+#     
+#     project = "%s_%s" % (options.docname, options.version) if options.version else options.docname
+#     static = Directory(__static__)
+#     
+#     # create database documentation page
+#     doc = IndexTemplate()
+#     doc.render(docname=options.docname, author=options.author, version=options.version)
+#     doc.save()
+#     
+#     # create `create statements` page
+#     stmts = SQLTemplate()
+#     stmts.render()
+#     stmts.save()
+#     
+#     # packaging the document
+#     documentor = Documentor(project)
+#     documentor.add(static, 'static')
+#     documentor.add(doc, 'index.html')
+#     documentor.add(stmts, 'sql.txt')
+#     
+#     # disconnecting from database
+#     db.close()
+#     
+#     # exporting the document
+#     if not documentor.exists():
+#         documentor.deploy()
+#     else:
+#         sys.exit("Failed to create documentation. File exists error")
