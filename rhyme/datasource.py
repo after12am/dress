@@ -1,7 +1,8 @@
 # encoding: utf-8
 import os, sys, re, subprocess, defs
-from config import config
+from config import get_config
 from abc import ABCMeta, abstractmethod
+from misc import dict2obj
 
 class DataSource(object):
     
@@ -285,7 +286,7 @@ class DB(object):
         if hasattr(cls, 'instance') and cls.instance:
             return cls.instance
         
-        options = config(defs.config_name)
+        options =dict2obj(get_config(defs.config_name).database)
         
         if options.datasource == 'Database/MySQL':
             cls.instance = MySQL(host=options.host, user=options.user, \
@@ -304,7 +305,7 @@ class DB(object):
             cls.instance.connect()
             return cls.instance
         
-        sys.exit("Failed to connect datasource. No datasource selected")
+        raise ValueError("Invalid datasource: {0}".format(options.datasource))
     
     @classmethod
     def close(cls):

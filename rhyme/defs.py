@@ -1,8 +1,9 @@
 # encoding: utf-8
-import os
 
+# configuration file name
 config_name = '.rhyme.yml'
 
-dirname  = os.path.dirname(os.path.abspath(__file__))
-static   = os.path.join(dirname, '_static')
-template = '_templates'
+# valid data sources for database
+valid_datasources = ['mysql', 'sqlite', 'postgres']
+
+

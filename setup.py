@@ -12,7 +12,7 @@ setup(
     ],
     entry_points={
         'console_scripts':
-            'rhyme = rhyme.main:rhyme_main'
+            'rhyme = rhyme.main:main'
     },
     zip_safe=False,
     classifiers=[
