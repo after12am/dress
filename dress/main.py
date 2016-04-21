@@ -121,9 +121,9 @@ def main(argv=sys.argv[1:]):
             sys.exit("Aborted due to invalid datasource.")
         
         if create_conf_file(options.datasource):
-            sys.stdout.write("Success to create \".rhyme.yml\" file!\n")
+            sys.stdout.write("Success to create \".dress.yml\" file!\n")
         else:
-            sys.stdout.error("Failed to create \".rhyme.yml\" file :(\n")
+            sys.stdout.error("Failed to create \".dress.yml\" file :(\n")
     
     
     # exporting database document

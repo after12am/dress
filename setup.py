@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='rhyme',
+    name='dress',
     version='pre-alpha',
     packages=find_packages(),
     install_requires=[
@@ -12,7 +12,7 @@ setup(
     ],
     entry_points={
         'console_scripts':
-            'rhyme = rhyme.main:main'
+            'dress = dress.main:main'
     },
     zip_safe=False,
     classifiers=[

@@ -1,6 +1,6 @@
 $ mysql -uroot -p
 
-mysql> create database rhyme DEFAULT CHARACTER SET utf8;
+mysql> create database dress DEFAULT CHARACTER SET utf8;
 
 
 CREATE TABLE `docclass_cc` (

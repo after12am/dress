@@ -1,4 +1,4 @@
-$ sqlite3 ~/Desktop/rhyme.db
+$ sqlite3 ~/Desktop/dress.db
 
 CREATE TABLE `docclass_cc` (
     `id` integer NOT NULL PRIMARY KEY AUTOINCREMENT,

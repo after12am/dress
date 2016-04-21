@@ -1,7 +1,7 @@
-rhyme
+dress
 =====
 
-rhyme is a database design documentor. This console application generates database design documentation in html format from your RDB like MySQL. There is no need to review updates and update your documentation one by one. You add comments on tables and rows, and then type a command in your terminal. That's all.
+dress is a database design documentor. This console application generates database design documentation in html format from your RDB like MySQL. There is no need to review updates and update your documentation one by one. You add comments on tables and rows, and then type a command in your terminal. That's all.
 
 ## Supported
 
@@ -13,8 +13,8 @@ rhyme is a database design documentor. This console application generates databa
 ## Usage
 
 ```
-$ python rhyme config --datasource mysql
-$ python rhyme export
+$ python dress config --datasource mysql
+$ python dress export
 ```
 
 ## Note
